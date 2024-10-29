@@ -1,6 +1,6 @@
 using System;
 
-namespace Core.Entities;
+namespace Core.Entities.Abstractions;
 
 public class BaseEntity
 {

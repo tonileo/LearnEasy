@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Core.Entities.Abstractions;
 
 namespace Core.Entities;
 
