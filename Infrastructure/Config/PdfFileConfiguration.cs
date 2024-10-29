@@ -5,18 +5,17 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Config;
 
-public class PdfFileConfiguration : IEntityTypeConfiguration<FlashCard>
+public class PdfFileConfiguration : IEntityTypeConfiguration<PdfFile>
 {
-    public void Configure(EntityTypeBuilder<FlashCard> builder)
+    public void Configure(EntityTypeBuilder<PdfFile> builder)
     {
-        builder.HasOne(a => a.Subject)
-            .WithMany(b => b.FlashCards)
-            .HasForeignKey(c => c.SubjectId)
-            .OnDelete(DeleteBehavior.Cascade);
+        builder.HasIndex(a => a.Name)
+            .IsUnique();
 
-        builder.HasOne(d => d.Tag)
-            .WithMany(e => e.FlashCards)
-            .HasForeignKey(f => f.TagId)
-            .OnDelete(DeleteBehavior.NoAction);
+        builder
+            .HasOne(b => b.Subject)
+            .WithMany(c => c.PdfFiles)
+            .HasForeignKey(d => d.SubjectId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

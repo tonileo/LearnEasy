@@ -23,24 +23,26 @@ public class SubjectService(AppDbContext context) : ISubjectService
 
             return subjectList;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            throw new InvalidOperationException("Problem with loading subjects");
+            throw new InvalidOperationException("Problem with loading subjects:  " + ex.Message);
         }
     }
 
     public async Task<SubjectDto> GetSubject(int id)
     {
-        var subject = await context.Subjects
+        try
+        {
+            var subject = await context.Subjects
             .Include(f => f.FlashCards)
             .Include(z => z.Notes)
             .Include(g => g.PdfFiles)
             .SingleOrDefaultAsync(x => x.Id == id)
             ?? throw new InvalidOperationException($"No subject found with id {id}");
 
-        var flashCardQuestion = subject.FlashCards.Select(f => f.Question).ToList();
+        var flashCardQuestion = subject.FlashCards.Select(f => f.Question).ToList<string?>();
         var noteNames = subject.Notes.Select(x => x.Name).ToList();
-        var pdfFileNames = subject.PdfFiles.Select(g => g.Name).ToList();
+        var pdfFileNames = subject.PdfFiles.Select(g => g.Name).ToList<string?>();
 
         return new SubjectDto
         {
@@ -49,6 +51,12 @@ public class SubjectService(AppDbContext context) : ISubjectService
             NoteNames = noteNames,
             PdfFileNames = pdfFileNames
         };
+        }
+        catch (Exception ex)
+        {
+            
+            throw new InvalidOperationException("Problem with loading the subject: " + ex.Message);
+        }
     }
 
     public async Task AddSubject(SubjectRequestDto subjectRequestDto)
@@ -64,15 +72,16 @@ public class SubjectService(AppDbContext context) : ISubjectService
 
             var addSubject = new Subject
             {
-                Name = subjectRequestDto.Name
+                Name = subjectRequestDto.Name,
+                Color = subjectRequestDto.Color
             };
 
             await context.AddAsync(addSubject);
             await context.SaveChangesAsync();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            throw new InvalidOperationException("Problem with adding the subject!");
+            throw new InvalidOperationException("Problem with adding the subject! " + ex.Message);
         }
     }
 }

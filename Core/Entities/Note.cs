@@ -8,7 +8,11 @@ public class Note : BaseEntity
 {
     public string? Name { get; set; }
     public string? Text { get; set; }
+
+    [Required]
     public DateTime CreatedAt { get; set; }
+
+    [Required]
     public DateTime LastChanged { get; set; }
 
     [Required]

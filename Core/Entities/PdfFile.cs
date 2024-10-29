@@ -6,8 +6,13 @@ namespace Core.Entities;
 
 public class PdfFile : BaseEntity
 {
-    public string? Name { get; set; }
+    [Required]
+    public required string Name { get; set; }
+
+    [Required]
     public required string Path { get; set; }
+
+    [Required]
     public DateTime CreatedAt { get; set; }
 
     [Required]

@@ -11,5 +11,10 @@ public class SubjectConfiguration : IEntityTypeConfiguration<Subject>
     {
         builder.HasIndex(x => x.Name)
             .IsUnique();
+
+        builder.HasOne(y => y.Category)
+            .WithMany(z => z.Subjects)
+            .HasForeignKey(f => f.CategoryId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }
