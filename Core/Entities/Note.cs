@@ -10,10 +10,10 @@ public class Note : BaseEntity
     public string? Text { get; set; }
 
     [Required]
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 
     [Required]
-    public DateTime LastChanged { get; set; }
+    public DateTime LastChanged { get; set; } = DateTime.Now;
 
     [Required]
     public int SubjectId { get; set; }
