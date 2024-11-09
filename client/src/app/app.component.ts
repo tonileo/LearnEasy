@@ -7,7 +7,7 @@ import { LibraryComponent } from "./features/library/library.component";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidebarComponent, SubjectComponent, LibraryComponent],
+  imports: [RouterOutlet, SidebarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
