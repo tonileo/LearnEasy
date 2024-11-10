@@ -9,16 +9,33 @@ namespace Infrastructure.Services;
 
 public class SubjectService(AppDbContext context) : ISubjectService
 {
-    public async Task<List<string>> GetAllSubjects()
+    public async Task<List<LibraryDto>> GetAllSubjects()
     {
         try
         {
-            var subjects = await context.Subjects.AsNoTracking().ToListAsync();
+            var subjects = await context.Subjects.Include(s => s.Category)
+                .Include(f => f.FlashCards)
+                .Include(n => n.Notes)
+                .Include(p => p.PdfFiles).AsNoTracking().ToListAsync();
 
-            var subjectList = new List<string>();
+            var flashCardCount = subjects.Sum(c => c.Notes.Count);
+
+            var subjectList = new List<LibraryDto>();
             foreach (var subject in subjects)
             {
-                subjectList.Add(subject.Name);
+                var library = new LibraryDto
+                {
+                    SubjectId = subject.Id,
+                    Name = subject.Name,
+                    Color = subject.Color,
+                    CategoryName = subject.Category!.Name,
+
+                    FlashCardsCount = subject.FlashCards.Count,
+                    NotesCount = subject.Notes.Count,
+                    PdfFilesCount = subject.PdfFiles.Count
+                };
+
+                subjectList.Add(library);
             }
 
             return subjectList;
@@ -40,21 +57,21 @@ public class SubjectService(AppDbContext context) : ISubjectService
             .SingleOrDefaultAsync(x => x.Id == id)
             ?? throw new InvalidOperationException($"No subject found with id {id}");
 
-        var flashCardQuestion = subject.FlashCards.Select(f => f.Question).ToList<string?>();
-        var noteNames = subject.Notes.Select(x => x.Name).ToList();
-        var pdfFileNames = subject.PdfFiles.Select(g => g.Name).ToList<string?>();
+            var flashCardQuestion = subject.FlashCards.Select(f => f.Question).ToList<string?>();
+            var noteNames = subject.Notes.Select(x => x.Name).ToList();
+            var pdfFileNames = subject.PdfFiles.Select(g => g.Name).ToList<string?>();
 
-        return new SubjectDto
-        {
-            Name = subject.Name,
-            FlashCardQuestions = flashCardQuestion,
-            NoteNames = noteNames,
-            PdfFileNames = pdfFileNames
-        };
+            return new SubjectDto
+            {
+                Name = subject.Name,
+                FlashCardQuestions = flashCardQuestion,
+                NoteNames = noteNames,
+                PdfFileNames = pdfFileNames
+            };
         }
         catch (Exception ex)
         {
-            
+
             throw new InvalidOperationException("Problem with loading the subject: " + ex.Message);
         }
     }
@@ -73,6 +90,7 @@ public class SubjectService(AppDbContext context) : ISubjectService
             var addSubject = new Subject
             {
                 Name = subjectRequestDto.Name,
+                CategoryId = subjectRequestDto.CategoryId,
                 Color = subjectRequestDto.Color
             };
 

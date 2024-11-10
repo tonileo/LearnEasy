@@ -3,25 +3,44 @@
         <header class="text-4xl p-4 font-bold">LIBRARY</header>
 
         <button mat-flat-button class="my-auto ml-auto mr-6" (click)="addNewSubject()">
-            Add new subject
+            + Add new subject
         </button>
     </div>
 
-    <div class="ml-1 p-3 text-xl">
+    <div class="ml-1 pl-3 pb-3 text-xl">
         Menu
     </div>
     
-
     <div class="p-4 border-t-2">
+        @if (subjectCards.length === 0) {
+            <a class="subject flex flex-col p-4 items-center justify-center h-36 w-fit m-2 
+                content-center text-gray-500 border rounded-2xl" (click)="addNewSubject()">
+                <p class="text-2xl">+</p>
+                <p class="text-2xl mb-4">Add your first subject</p>
+                <p class="text-sm">Get started by adding subjects to organize your learning materials!</p>
+            </a>
+        }
         <div class="flex gap-4 mt-2">
             @for (subject of subjectCards; track $index) {
                 <a [routerLink]="['/subject', subject.subjectId]" class="subject block border rounded-2xl p-3 border-blue-500 w-80 h-32 overflow-auto">
-                    <p class="text-xl font-bold">{{subject.name}}</p>
-                    <p class="font-thin text-gray-400">{{subject.categoryName}}</p>
-                    <p>50 FlashCards</p>
+                    <div class="content flex flex-col justify-between h-full">
+                        <div>
+                            <p class="text-xl font-bold">{{subject.name}}</p>
+                            <p class="font-thin text-gray-400">{{subject.categoryName}}</p>
+                        </div>
+
+                        <div class="mt-auto flex border-t pt-1.5">
+                            <p class="mr-2">{{subject.flashCardsCount}} Flashcards</p>
+                            @if (subject.pdfFilesCount > 0) {
+                                <p class="mr-2">- {{subject.pdfFilesCount}} Files</p>
+                            }
+                            @if (subject.notesCount > 0) {
+                                <p>- {{subject.notesCount}} Notes</p>
+                            }
+                        </div>
+                    </div>
                 </a>
             }
-
         </div>
     </div>
 </div>

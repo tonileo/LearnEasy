@@ -3,6 +3,7 @@ import { SubjectService } from '../../core/services/subject.service';
 import { Subject } from '../../shared/models/subject';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-subject',
@@ -16,12 +17,20 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class SubjectComponent implements OnInit{
   private subjectService = inject(SubjectService);
-  subjects: string[] = [];
-  
+  private activatedRoute = inject(ActivatedRoute);
+  subject?: Subject
   
   ngOnInit(): void {
-    this.subjectService.getAllSubjects().subscribe({
-      next: response => this.subjects = response,
+    this.loadSubject();
+  }
+
+  loadSubject() {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    console.log(id);
+    if(!id) return;
+
+    this.subjectService.getSubject(+id).subscribe({
+      next: response => this.subject = response,
       error: error => console.error(error)
     });
   }
@@ -29,5 +38,4 @@ export class SubjectComponent implements OnInit{
   addNewFlashCard(): void {
     
   }
-
 }

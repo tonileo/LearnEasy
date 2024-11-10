@@ -1,44 +1,41 @@
-<div class="max-h-screen mt-10 mb-5 py-5 rounded-xl ">
-    <div class="flex">
-        <header class="text-4xl p-4 font-bold">SIS KOL</header>
-        <button mat-stroked-button class="my-auto ml-auto mr-2" (click)="addNewFlashCard()">
-            Add new flashcard
-        </button>
-
-        <button mat-flat-button class="my-auto mr-6">
-            Start Learning
-        </button>
-    </div>
+@if (subject) {
+    <div class="py-5">
+        <div class="flex">
+            <header class="text-4xl p-4 font-bold">{{subject.name}}</header>
+            <button mat-stroked-button class="my-auto ml-auto mr-2" (click)="addNewFlashCard()">
+                Add new flashcard
+            </button>
     
-
-    <div class="p-4 border-t-2">
-        <p class="py-2">FlashCards</p>
-        <div class="flex gap-2 mt-2">
+            <button mat-flat-button class="my-auto mr-6">
+                <mat-icon>school</mat-icon>
+                Start Learning
+            </button>
+        </div>
+        
+    
+        <div class="p-4 border-t-2">
+            <p class="py-2">FlashCards</p>
+            <div class="flex gap-2 mt-2">
+                @for (question of subject.flashCardQuestions; track $index) {
+                    <div class="text-xl border rounded-2xl p-3 border-blue-500 w-72 h-32 overflow-auto">
+                        {{question}}
+                    </div>
+                }
+            </div>
+        </div>
+    
+        <div class="p-4 border-t border-white">
+            <p class="py-2">Files</p>
             <div class="text-xl border rounded-2xl p-3 border-blue-500 w-72 h-32 overflow-auto">
                 What is random question?
             </div>
-
-            <div class="text-xl border rounded-2xl p-3 border-blue-500 w-72 h-32 overflow-auto">
-                What is random question?
-            </div>
-
+        </div>
+    
+        <div class="p-4 border-t border-white">
+            <p class="py-2">Notes</p>
             <div class="text-xl border rounded-2xl p-3 border-blue-500 w-72 h-32 overflow-auto">
                 What is random question?
             </div>
         </div>
     </div>
-
-    <div class="p-4 border-t border-white">
-        <p class="py-2">Files</p>
-        <div class="text-xl border rounded-2xl p-3 border-blue-500 w-72 h-32 overflow-auto">
-            What is random question?
-        </div>
-    </div>
-
-    <div class="p-4 border-t border-white">
-        <p class="py-2">Notes</p>
-        <div class="text-xl border rounded-2xl p-3 border-blue-500 w-72 h-32 overflow-auto">
-            What is random question?
-        </div>
-    </div>
-</div>
+}

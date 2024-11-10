@@ -5,7 +5,7 @@ namespace Core.Interfaces;
 
 public interface ISubjectService
 {
-    Task<List<string>> GetAllSubjects();
+    Task<List<LibraryDto>> GetAllSubjects();
     Task<SubjectDto> GetSubject(int id);
     Task AddSubject(SubjectRequestDto SubjectRequestDto);
 }

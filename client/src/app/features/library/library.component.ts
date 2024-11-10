@@ -27,6 +27,6 @@ export class LibraryComponent implements OnInit{
   }
 
   addNewSubject(): void {
-
+    
   }
 }

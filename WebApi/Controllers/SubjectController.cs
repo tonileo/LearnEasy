@@ -11,7 +11,7 @@ namespace WebApi.Controllers
     public class SubjectController(ISubjectService subjectService) : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<string>>> GetAllSubjects()
+        public async Task<ActionResult<IEnumerable<LibraryDto>>> GetAllSubjects()
         {
             var result = await subjectService.GetAllSubjects();
 

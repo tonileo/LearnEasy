@@ -13,8 +13,9 @@ public class Subject : BaseEntity
     [Required]
     public required string Color { get; set; }
 
-    public int? CategoryId { get; set; }
-    public virtual Category? Category { get; set; }
+    [Required]
+    public int CategoryId { get; set; }
+    public virtual Category Category { get; set; } = new Category{Id = 1, Name = "blue" };
 
     public virtual ICollection<Note> Notes {get; set;} =  [];
     public virtual ICollection<PdfFile> PdfFiles { get; set; } = [];
