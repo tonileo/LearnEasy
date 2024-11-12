@@ -20,6 +20,16 @@ namespace WebApi.Controllers
             return result;
         }
 
+        [HttpGet("categories")]
+        public async Task<ActionResult<IEnumerable<CategoryDto>>> GetAllCategories()
+        {
+            var result = await subjectService.GetAllCategories();
+
+            if (result == null) return BadRequest("Problem with fetching categories");
+
+            return result;
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<SubjectDto>> GetSubject(int id)
         {

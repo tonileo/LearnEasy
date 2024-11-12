@@ -46,6 +46,31 @@ public class SubjectService(AppDbContext context) : ISubjectService
         }
     }
 
+    public async Task<List<CategoryDto>> GetAllCategories() 
+    {
+        try
+        {
+            var categories = await context.Categories.AsNoTracking().ToListAsync();
+        
+            var categoryList = new List<CategoryDto>();
+            foreach (var category in categories)
+            {
+                var categoryDto = new CategoryDto {
+                    Id = category.Id,
+                    Name = category.Name
+                };
+
+                categoryList.Add(categoryDto);
+            }
+
+            return categoryList;
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("Problem with loading categories:  " + ex.Message);
+        }
+    }
+
     public async Task<SubjectDto> GetSubject(int id)
     {
         try

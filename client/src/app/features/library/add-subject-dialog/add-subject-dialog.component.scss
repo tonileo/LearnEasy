@@ -1,0 +1,19 @@
+.dialog {
+    background-color: #12023c;
+}
+
+:host ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-text-field__input{
+    color: white;
+}
+
+:host ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-floating-label{
+    color: white;
+}
+
+:host ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mat-mdc-notch-piece{
+    border-color: white;
+}
+
+h2 {
+    font-size: 28px;
+}

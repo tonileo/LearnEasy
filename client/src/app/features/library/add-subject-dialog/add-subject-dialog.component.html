@@ -1,0 +1,35 @@
+<mat-card class="p-8 dialog border bg-white">
+    <mat-card-header class="justify-center">
+        <h2 class="text-center font-semibold pb-7">Create a new subject</h2>
+    </mat-card-header>
+
+    <mat-card-content>
+        <form [formGroup]="addSubjectForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-1">
+            <mat-form-field appearance="outline">
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="name" type="text" placeholder="Math 1">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" color="primary">
+                <mat-label>Category</mat-label>
+                <mat-select formControlName="categoryId" required>
+                    @for (category of categories; track $index) {
+                    <mat-option [value]="category.id">{{category.name}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Color</mat-label>
+                <mat-select formControlName="color" required>
+                    <mat-option value="blue">Blue</mat-option>
+                    <mat-option value="red">red</mat-option>
+                    <mat-option value="purple">purple</mat-option>
+                    <mat-option value="green">green</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <button mat-flat-button type="submit" class="mt-4">Create</button>
+        </form>
+    </mat-card-content>
+</mat-card>
