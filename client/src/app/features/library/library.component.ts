@@ -5,6 +5,7 @@ import { SubjectCard } from '../../shared/models/subjectCard';
 import { RouterLink } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddSubjectDialogComponent } from './add-subject-dialog/add-subject-dialog.component';
+import { LibraryService } from '../../core/services/library.service';
 
 @Component({
   selector: 'app-library',
@@ -18,6 +19,7 @@ import { AddSubjectDialogComponent } from './add-subject-dialog/add-subject-dial
   styleUrl: './library.component.scss'
 })
 export class LibraryComponent implements OnInit{
+  private libraryService = inject(LibraryService)
   private subjectService = inject(SubjectService);
   readonly dialog = inject(MatDialog);
   subjectCards: SubjectCard[] = [];
@@ -27,7 +29,7 @@ export class LibraryComponent implements OnInit{
   }
 
   loadData(): void {
-    this.subjectService.getAllSubjects().subscribe({
+    this.libraryService.getAllSubjects().subscribe({
       next: response => this.subjectCards = response,
       error: error => console.error(error)
     });

@@ -3,10 +3,11 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { SubjectService } from '../../../core/services/subject.service';
 import { MatButton } from '@angular/material/button';
-import { MatCard, MatCardModule } from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { Category } from '../../../shared/models/category';
+import { LibraryService } from '../../../core/services/library.service';
+import { SubjectService } from '../../../core/services/subject.service';
 
 @Component({
   selector: 'app-add-subject-dialog',
@@ -25,6 +26,7 @@ import { Category } from '../../../shared/models/category';
 export class AddSubjectDialogComponent implements OnInit{
   readonly dialogRef = inject(MatDialogRef<AddSubjectDialogComponent>);
   private fb = inject(FormBuilder);
+  private libraryService = inject(LibraryService);
   private subjectService = inject(SubjectService);
   categories: Category[] = [];
 
@@ -35,7 +37,7 @@ export class AddSubjectDialogComponent implements OnInit{
   })
 
   ngOnInit(): void {
-    this.subjectService.getAllCategories().subscribe({
+    this.libraryService.getAllCategories().subscribe({
       next: result => this.categories = result,
       error: error => console.error(error)
     });
