@@ -6,5 +6,5 @@ namespace Core.Interfaces;
 public interface IFlashCardService
 {
     Task<List<FlashCardDto>> GetFlashCards(int subjectId);
-    Task AddFlashCard(int subjectId, FlashCardDto flashCardDto);
+    Task AddFlashCard(int subjectId, FlashCardRequestDto flashCardDto);
 }

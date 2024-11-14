@@ -1,0 +1,22 @@
+<mat-card class="p-8 dialog border bg-white">
+    <mat-card-header class="justify-center">
+        <h2 class="text-center font-semibold pb-7">Create new flashcard</h2>
+    </mat-card-header>
+
+    <mat-card-content>
+        <form [formGroup]="addFlashCardForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-1">
+            <mat-form-field appearance="outline">
+                <mat-label>Question</mat-label>
+                <input matInput formControlName="question" type="text" placeholder="Is this a random question?">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Answear</mat-label>
+                <input matInput formControlName="answear" type="text" placeholder="Yes">
+            </mat-form-field>
+
+            <!-- <button mat-flat-button type="submit" class="mt-4">Create another flashcard</button> -->
+            <button mat-flat-button type="submit" class="mt-4">Create the flashcard</button>
+        </form>
+    </mat-card-content>
+</mat-card>

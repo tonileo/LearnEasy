@@ -5,8 +5,9 @@ import { ProfileComponent } from './features/profile/profile.component';
 import { StatsComponent } from './features/stats/stats.component';
 
 export const routes: Routes = [
-    {path: '', component:LibraryComponent},
-    {path: 'subject/:id', component:SubjectComponent},
-    {path: 'profile', component:ProfileComponent},
-    {path: 'stats', component:StatsComponent}
+    { path: '', component: LibraryComponent },
+    { path: 'library', redirectTo: '', pathMatch: 'full' },
+    { path: 'subject/:id', component: SubjectComponent },
+    { path: 'profile', component: ProfileComponent },
+    { path: 'stats', component: StatsComponent }
 ];

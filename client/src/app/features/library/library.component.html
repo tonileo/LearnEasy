@@ -2,7 +2,7 @@
     <div class="flex">
         <header class="text-4xl p-4 font-bold">LIBRARY</header>
 
-            <button mat-flat-button class="my-auto ml-auto mr-6" (click)="addNewSubject()">
+            <button mat-flat-button class="my-auto ml-auto mr-6" (click)="addNewSubjectDialog()">
                 + Add new subject
             </button>
     </div>
@@ -14,7 +14,7 @@
     <div class="p-4 border-t border-t-gray-600">
         @if (subjectCards.length === 0) {
             <a class="subject flex flex-col p-4 items-center justify-center h-36 w-fit m-2 
-                content-center text-gray-500 border rounded-2xl" (click)="addNewSubject()">
+                content-center text-gray-500 border rounded-2xl" (click)="addNewSubjectDialog()">
                 <p class="text-2xl">+</p>
                 <p class="text-2xl mb-4">Add your first subject</p>
                 <p class="text-sm">Get started by adding subjects to organize your learning materials!</p>

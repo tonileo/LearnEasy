@@ -23,6 +23,7 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
             {
                 flashCardList.Add(new FlashCardDto()
                 {
+                    Id = flashCard.Id,
                     Question = flashCard.Question,
                     Answear = flashCard.Answear
                 });
@@ -36,7 +37,7 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
         }
     }
 
-    public async Task AddFlashCard(int subjectId, FlashCardDto flashCardDto)
+    public async Task AddFlashCard(int subjectId, FlashCardRequestDto flashCardDto)
     {
         try
         {

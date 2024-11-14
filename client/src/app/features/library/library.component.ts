@@ -19,8 +19,7 @@ import { LibraryService } from '../../core/services/library.service';
   styleUrl: './library.component.scss'
 })
 export class LibraryComponent implements OnInit{
-  private libraryService = inject(LibraryService)
-  private subjectService = inject(SubjectService);
+  private libraryService = inject(LibraryService);
   readonly dialog = inject(MatDialog);
   subjectCards: SubjectCard[] = [];
   
@@ -35,7 +34,7 @@ export class LibraryComponent implements OnInit{
     });
   }
 
-  addNewSubject(): void {
+  addNewSubjectDialog(): void {
     const dialogRef = this.dialog.open(AddSubjectDialogComponent, {
       width: '500px'
     });

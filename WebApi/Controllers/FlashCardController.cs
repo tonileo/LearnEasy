@@ -21,7 +21,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddFlashCard(int subjectId, FlashCardDto flashCardDto)
+        public async Task<ActionResult> AddFlashCard(int subjectId, FlashCardRequestDto flashCardDto)
         {
             await flashCardService.AddFlashCard(subjectId, flashCardDto);
 
