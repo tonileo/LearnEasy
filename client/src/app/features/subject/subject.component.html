@@ -24,14 +24,17 @@
     </div>
 
     <div class="relative scrollDiv">
-      <button class="scrollBtn absolute left-0 ml-2 top-1/2 transform -translate-y-1/2 border border-gray-500 rounded-full p-2 z-10 w-10 h-10 items-center justify-center flex"
+      @if (subject.flashCardQuestions.length > 5) {
+      <button
+        class="scrollBtn absolute left-0 ml-2 top-1/2 transform -translate-y-1/2 border border-gray-500 rounded-full p-2 z-10 w-10 h-10 items-center justify-center flex"
         (click)="scrollLeft()">
         <mat-icon>arrow_left</mat-icon>
       </button>
+      }
 
       <div #scrollContainer class="flex gap-2 mt-2 overflow-hidden">
         @for (question of subject.flashCardQuestions; track $index) {
-        <a class="customClickableBlock flex-none block w-60 h-36 pb-1 overflow-auto">
+        <a class="customClickableBlock flex-none block h-36 pb-1 overflow-auto">
           <div class="content flex flex-col h-full">
             <div class="mt-auto text-center">
               <p class="text-xl">{{ question }}</p>
@@ -56,10 +59,14 @@
         }
       </div>
 
-      <button class="scrollBtn absolute right-0 mr-2 top-1/2 transform -translate-y-1/2 border border-gray-500 rounded-full p-2 z-10 w-10 h-10 items-center justify-center flex"
-        (click)="scrollRight()">
-        <mat-icon>arrow_right</mat-icon>
-      </button>
+      @if (subject.flashCardQuestions.length > 5) {
+        <button
+          class="scrollBtn absolute right-0 mr-2 top-1/2 transform -translate-y-1/2 border border-gray-500 rounded-full p-2 z-10 w-10 h-10 items-center justify-center flex"
+          (click)="scrollRight()">
+          <mat-icon>arrow_right</mat-icon>
+        </button>
+      }
+
     </div>
   </div>
 
