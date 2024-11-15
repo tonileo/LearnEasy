@@ -6,6 +6,8 @@ import { RouterLink } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddSubjectDialogComponent } from './add-subject-dialog/add-subject-dialog.component';
 import { LibraryService } from '../../core/services/library.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-library',
@@ -13,7 +15,9 @@ import { LibraryService } from '../../core/services/library.service';
   imports: [
     MatButton,
     RouterLink,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule,
+    MatIconModule
   ],
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss'

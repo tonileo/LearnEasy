@@ -3,4 +3,8 @@ export interface Subject {
     flashCardQuestions: string[];
     noteNames: string[];
     pdfFileNames: string[];
+
+    flashCardsCount: number;
+    pdfFilesCount: number;
+    notesCount: number;
 }

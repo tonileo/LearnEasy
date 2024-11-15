@@ -12,10 +12,13 @@ public class LibraryService(AppDbContext context) : ILibraryService
     {
         try
         {
-            var subjects = await context.Subjects.Include(s => s.Category)
+            var subjects = await context.Subjects
+                .Include(s => s.Category)
                 .Include(f => f.FlashCards)
                 .Include(n => n.Notes)
-                .Include(p => p.PdfFiles).AsNoTracking().ToListAsync();
+                .Include(p => p.PdfFiles)
+                .AsNoTracking()
+                .ToListAsync();
 
             var flashCardCount = subjects.Sum(c => c.Notes.Count);
 

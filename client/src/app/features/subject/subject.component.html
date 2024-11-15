@@ -1,41 +1,76 @@
 @if (subject) {
-    <div class="py-5">
-        <div class="flex">
-            <header class="text-4xl p-4 font-bold">{{subject.name}}</header>
-            <button mat-stroked-button class="my-auto ml-auto mr-2" (click)="addNewFlashCardDialog()">
-                Add new flashcard
-            </button>
-    
-            <button mat-flat-button class="my-auto mr-6">
-                <mat-icon>school</mat-icon>
-                Start Learning
-            </button>
-        </div>
-        
-    
-        <div class="p-4 border-t-2">
-            <p class="py-2">FlashCards</p>
-            <div class="flex gap-2 mt-2">
-                @for (question of subject.flashCardQuestions; track $index) {
-                    <div class="text-xl border rounded-2xl p-3 border-blue-500 w-72 h-32 overflow-auto">
-                        {{question}}
-                    </div>
-                }
-            </div>
-        </div>
-    
-        <div class="p-4 border-t border-white">
-            <p class="py-2">Files</p>
-            <div class="text-xl border rounded-2xl p-3 border-blue-500 w-72 h-32 overflow-auto">
-                What is random question?
-            </div>
-        </div>
-    
-        <div class="p-4 border-t border-white">
-            <p class="py-2">Notes</p>
-            <div class="text-xl border rounded-2xl p-3 border-blue-500 w-72 h-32 overflow-auto">
-                What is random question?
-            </div>
-        </div>
+<div class="py-5">
+  <div class="flex">
+    <header class="text-4xl p-4 font-bold">{{ subject.name }}</header>
+    <button mat-stroked-button class="my-auto ml-auto mr-2" (click)="addNewFlashCardDialog()">
+      + Add new flashcard
+    </button>
+
+    <button mat-flat-button class="my-auto mr-6">
+      <mat-icon>school</mat-icon>
+      Start Learning
+    </button>
+  </div>
+
+  <div class="p-4 border-t-2">
+    <div class="flex py-2">
+      <p>Flashcards</p>
+      <p class="customCounter">
+        {{subject.flashCardsCount}}
+      </p>
+      @if (subject.flashCardQuestions.length > 7) {
+        <button class="ml-auto mr-6 text-blue-500">Show more</button>
+      }
     </div>
+
+    <div class="flex gap-2 mt-2 flex-wrap">
+      @for (question of subject.flashCardQuestions; track $index) {
+      <a class="customClickableBlock block rounded-2xl px-3 pt-3 pb-1 h-32 overflow-auto">
+        <div class="content flex flex-col h-full">
+          <div class="mt-auto text-center">
+            <p class="text-xl">{{ question }}</p>
+          </div>
+
+          <div class="mt-auto flex border-t pt-1.5">
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="ml-auto">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item>
+                Edit
+              </button>
+
+              <button mat-menu-item>
+                Delete
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+      </a>
+      }
+    </div>
+  </div>
+
+  <div class="p-4 border-t border-white">
+    <div class="flex py-2">
+      <p>Files</p>
+      <p class="customCounter">
+        {{subject.pdfFilesCount}}
+      </p>
+    </div>
+
+    <div>Files here...</div>
+  </div>
+
+  <div class="p-4 border-t border-white">
+    <div class="flex py-2">
+      <p>Notes</p>
+      <p class="customCounter">
+        {{subject.notesCount}}
+      </p>
+    </div>
+
+    <div>Notes here...</div>
+  </div>
+</div>
 }

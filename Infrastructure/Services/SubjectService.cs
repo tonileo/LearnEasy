@@ -20,7 +20,7 @@ public class SubjectService(AppDbContext context) : ISubjectService
             .SingleOrDefaultAsync(x => x.Id == id)
             ?? throw new InvalidOperationException($"No subject found with id {id}");
 
-            var flashCardQuestion = subject.FlashCards.Select(f => f.Question).ToList<string?>();
+            var flashCardQuestion = subject.FlashCards.Select(f => f.Question).Take(8).ToList<string?>();
             var noteNames = subject.Notes.Select(x => x.Name).ToList();
             var pdfFileNames = subject.PdfFiles.Select(g => g.Name).ToList<string?>();
 
@@ -29,12 +29,15 @@ public class SubjectService(AppDbContext context) : ISubjectService
                 Name = subject.Name,
                 FlashCardQuestions = flashCardQuestion,
                 NoteNames = noteNames,
-                PdfFileNames = pdfFileNames
+                PdfFileNames = pdfFileNames,
+
+                FlashCardsCount = flashCardQuestion.Count,
+                PdfFilesCount = pdfFileNames.Count,
+                NotesCount = noteNames.Count,
             };
         }
         catch (Exception ex)
         {
-
             throw new InvalidOperationException("Problem with loading the subject: " + ex.Message);
         }
     }

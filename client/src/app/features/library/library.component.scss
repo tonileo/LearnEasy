@@ -1,11 +1,3 @@
-.subject{
-    cursor: pointer;
-}
-
-.subject.block{
-    width: 300px;
-}
-
-.subject:hover {
-    background-color: #332252;
+.clickableBlock button {
+    pointer-events: auto;
 }

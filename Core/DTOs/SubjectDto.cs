@@ -8,4 +8,8 @@ public class SubjectDto
     public List<string?> FlashCardQuestions { get; set; } = [];
     public List<string?> NoteNames { get; set; } = [];
     public List<string?> PdfFileNames { get; set; } = [];
+
+    public int FlashCardsCount { get; set; }
+    public int PdfFilesCount { get; set; }
+    public int NotesCount { get; set; }
 }
