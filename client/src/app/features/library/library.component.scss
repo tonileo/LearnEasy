@@ -1,3 +1,8 @@
 .clickableBlock button {
     pointer-events: auto;
 }
+
+.customClickableBlock.block {
+    width: 300px;
+    height: 150px;
+}

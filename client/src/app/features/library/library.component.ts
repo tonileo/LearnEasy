@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { SubjectService } from '../../core/services/subject.service';
 import { MatButton } from '@angular/material/button';
 import { SubjectCard } from '../../shared/models/subjectCard';
 import { RouterLink } from '@angular/router';

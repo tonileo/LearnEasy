@@ -6,6 +6,15 @@
    font-size: large;
 }
 
+.scrollBtn {
+   background-color: #12013f;
+   opacity: 0;
+}
+
+.scrollDiv:hover .scrollBtn{
+   opacity: 1;
+}
+
 .mat-mdc-outlined-button:not(:disabled){
    color: whitesmoke;
    border-color: white;

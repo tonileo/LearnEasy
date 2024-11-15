@@ -1,8 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { SubjectService } from '../../core/services/subject.service';
 import { Subject } from '../../shared/models/subject';
 import { MatButton } from '@angular/material/button';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddFlashCardDialogComponent } from './add-flash-card-dialog/add-flash-card-dialog.component';
@@ -21,6 +21,7 @@ import { MatMenuModule } from '@angular/material/menu';
   styleUrl: './subject.component.scss'
 })
 export class SubjectComponent implements OnInit {
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
   private subjectService = inject(SubjectService);
   private activatedRoute = inject(ActivatedRoute);
   readonly dialog = inject(MatDialog);
@@ -55,5 +56,15 @@ export class SubjectComponent implements OnInit {
         }
       });
     }
+  }
+
+  scrollLeft(): void {
+    const container = this.scrollContainer.nativeElement;
+    container.scrollBy({ left: -250, behavior: 'smooth' });
+  }
+
+  scrollRight(): void {
+    const container = this.scrollContainer.nativeElement;
+    container.scrollBy({ left: 250, behavior: 'smooth' });
   }
 }

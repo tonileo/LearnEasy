@@ -23,6 +23,7 @@ public class SubjectService(AppDbContext context) : ISubjectService
             var flashCardQuestion = subject.FlashCards.Select(f => f.Question).Take(8).ToList<string?>();
             var noteNames = subject.Notes.Select(x => x.Name).ToList();
             var pdfFileNames = subject.PdfFiles.Select(g => g.Name).ToList<string?>();
+            var flashCardCount = subject.FlashCards.Count;
 
             return new SubjectDto
             {
@@ -31,7 +32,7 @@ public class SubjectService(AppDbContext context) : ISubjectService
                 NoteNames = noteNames,
                 PdfFileNames = pdfFileNames,
 
-                FlashCardsCount = flashCardQuestion.Count,
+                FlashCardsCount = flashCardCount,
                 PdfFilesCount = pdfFileNames.Count,
                 NotesCount = noteNames.Count,
             };
