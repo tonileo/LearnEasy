@@ -18,12 +18,12 @@
       <p class="customCounter">
         {{subject.flashCardsCount}}
       </p>
-      @if (subject.flashCardQuestions.length > 7) {
+      @if (subject.flashCardsCount > 7) {
       <button class="ml-auto mr-6 text-blue-500">Show more</button>
       }
     </div>
 
-    @if (subject.flashCardQuestions.length == 0){
+    @if (subject.flashCardsCount == 0){
     <div class="noElementsDiv">
       <mat-icon class="flex my-auto align-middle content-center justify-center items-center">library_add</mat-icon>
 
@@ -39,7 +39,7 @@
     }
 
     <div class="relative scrollDiv">
-      @if (subject.flashCardQuestions.length > 5) {
+      @if (subject.flashCardsCount > 5) {
       <button
         class="scrollBtn absolute left-0 ml-2 top-1/2 transform -translate-y-1/2 border border-gray-500 rounded-full p-2 z-10 w-10 h-10 items-center justify-center flex"
         (click)="scrollLeft()">
@@ -74,7 +74,7 @@
         }
       </div>
 
-      @if (subject.flashCardQuestions.length > 5) {
+      @if (subject.flashCardsCount > 5) {
       <button
         class="scrollBtn absolute right-0 mr-2 top-1/2 transform -translate-y-1/2 border border-gray-500 rounded-full p-2 z-10 w-10 h-10 items-center justify-center flex"
         (click)="scrollRight()">
@@ -93,7 +93,7 @@
       </p>
     </div>
 
-    @if (subject.flashCardQuestions.length == 0){
+    @if (subject.pdfFilesCount == 0){
       <div class="noElementsDiv">
         <mat-icon class="flex my-auto align-middle content-center justify-center items-center">attach_file_add</mat-icon>
   
@@ -117,7 +117,7 @@
       </p>
     </div>
 
-    @if (subject.flashCardQuestions.length == 0){
+    @if (subject.notesCount == 0){
       <div class="noElementsDiv">
         <mat-icon class="flex my-auto align-middle content-center justify-center items-center">note_add</mat-icon>
   
