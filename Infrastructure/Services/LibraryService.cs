@@ -52,7 +52,7 @@ public class LibraryService(AppDbContext context) : ILibraryService
     {
         try
         {
-            var categories = await context.Categories.AsNoTracking().ToListAsync();
+            var categories = await context.Categories.OrderBy(x => x.Id).AsNoTracking().ToListAsync();
 
             var categoryList = new List<CategoryDto>();
             foreach (var category in categories)

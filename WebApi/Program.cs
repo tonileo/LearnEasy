@@ -1,5 +1,6 @@
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Data.Seed;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddScoped<SeedData>();
 
 builder.Services.AddScoped<ILibraryService, LibraryService>();
 builder.Services.AddScoped<ISubjectService, SubjectService>();
@@ -37,5 +39,20 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+try
+{
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<AppDbContext>();
+    var seedData = services.GetRequiredService<SeedData>();
+    await context.Database.MigrateAsync();
+    seedData.Run();
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex);
+    throw;
+}
 
 app.Run();

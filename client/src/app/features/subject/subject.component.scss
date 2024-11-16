@@ -10,6 +10,15 @@
    width: 243px;
 }
 
+.noElementsDiv{
+   background-color: #231942;
+   display: flex;
+   padding: 1rem;
+   border-width: 1px;
+   border-style: dashed;
+   border-radius: 1rem;
+}
+
 .scrollBtn {
    background-color: #12013f;
    opacity: 0;
