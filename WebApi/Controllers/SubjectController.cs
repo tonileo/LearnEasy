@@ -28,7 +28,7 @@ namespace WebApi.Controllers
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPut("{subjectId}")]
         public async Task<ActionResult> EditSubject(int subjectId, SubjectRequestDto subjectRequestDto)
         {
             await subjectService.EditSubject(subjectId, subjectRequestDto);

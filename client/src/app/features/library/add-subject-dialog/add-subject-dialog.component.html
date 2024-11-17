@@ -8,7 +8,7 @@
     </mat-card-header>
 
     <mat-card-content>
-        <form [formGroup]="addSubjectForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-1">
+        <form [formGroup]="addSubjectForm" class="flex flex-col gap-1">
             <mat-form-field appearance="outline">
                 <mat-label>Title</mat-label>
                 <input matInput formControlName="name" type="text" placeholder="Math 1" required>
@@ -40,7 +40,7 @@
             @if (matDialogData) {
                 <button mat-flat-button (click)="editSubject()" class="mt-5">Edit</button>
             }@else{
-                <button mat-flat-button type="submit" class="mt-5">Create</button>
+                <button mat-flat-button (click)="addSubject()" class="mt-5">Create</button>
             }
         </form>
     </mat-card-content>

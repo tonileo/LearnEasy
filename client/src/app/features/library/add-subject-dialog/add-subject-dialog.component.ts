@@ -78,7 +78,7 @@ export class AddSubjectDialogComponent implements OnInit {
     this.addSubjectForm.get('color')?.setValue(colorValue);
   }
 
-  onSubmit() {
+  addSubject() {
     this.subjectService.addSubject(this.addSubjectForm.value).subscribe({
       next: () => {
         this.dialogRef.close(true);
