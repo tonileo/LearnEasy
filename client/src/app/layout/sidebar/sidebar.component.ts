@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MatButton } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon'; 
 import { RouterLink } from '@angular/router';
 
@@ -8,7 +7,6 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [
     MatIconModule,
-    MatButton,
     RouterLink
   ],
   templateUrl: './sidebar.component.html',

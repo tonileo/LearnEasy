@@ -45,7 +45,8 @@
                             </button>
 
                             <mat-menu #menu="matMenu">
-                                <button mat-menu-item>
+                                <button mat-menu-item (click)="editSubjectDialog(subject.subjectId ,subject.name, 
+                                    subject.categoryName, subject.color)">
                                     Edit
                                   </button>
                     

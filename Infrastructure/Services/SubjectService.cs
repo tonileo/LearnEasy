@@ -76,4 +76,39 @@ public class SubjectService(AppDbContext context) : ISubjectService
             throw new InvalidOperationException("Problem with adding the subject! " + ex.Message);
         }
     }
+
+    public async Task EditSubject(int subjectId, SubjectRequestDto subjectRequestDto)
+    {
+        if (subjectRequestDto.Color != "blue" && subjectRequestDto.Color != "red" && subjectRequestDto.Color != "purple"
+            && subjectRequestDto.Color != "green" && subjectRequestDto.Color != "orange" && subjectRequestDto.Color != "yellow"
+            && subjectRequestDto.Color != "lightblue")
+        {
+            throw new InvalidOperationException("Color picked is not allowed!");
+        }
+
+        try
+        {
+            var subjectNames = await context.Subjects.Where(x => x.Name == subjectRequestDto.Name).FirstOrDefaultAsync();
+
+            if (subjectNames != null)
+            {
+                throw new InvalidOperationException("Subject with that name already exists!");
+            }
+
+            var subject = await context.Subjects.Where(y => y.Id == subjectId).FirstOrDefaultAsync();
+
+            if (subject != null)
+            {
+                subject.Name = subjectRequestDto.Name;
+                subject.CategoryId = subjectRequestDto.CategoryId;
+                subject.Color = subjectRequestDto.Color;
+            }
+
+            await context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("Problem with editing the subject! " + ex.Message);
+        }
+    }
 }

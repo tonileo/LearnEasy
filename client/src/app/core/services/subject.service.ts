@@ -14,6 +14,10 @@ export class SubjectService {
     return this.http.post(this.baseUrl + 'subject', values);
   }
 
+  editSubject(subjectId: number, values: any) {
+    return this.http.put(this.baseUrl + 'subject/' + subjectId, values)
+  }
+
   getSubject(id: number){
     return this.http.get<Subject>(this.baseUrl + 'subject/' + id)
   }

@@ -35,10 +35,10 @@
     justify-content: center;
 }
 
-:host ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-text-field__input, .mat-mdc-select {
-    color: white;
-}
-
 h2 {
     font-size: 28px;
+}
+
+:host ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-text-field__input, .mat-mdc-select {
+    color: white;
 }

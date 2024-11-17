@@ -21,11 +21,11 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss'
 })
-export class LibraryComponent implements OnInit{
+export class LibraryComponent implements OnInit {
   private libraryService = inject(LibraryService);
   readonly dialog = inject(MatDialog);
   subjectCards: SubjectCard[] = [];
-  
+
   ngOnInit(): void {
     this.loadData();
   }
@@ -40,6 +40,19 @@ export class LibraryComponent implements OnInit{
   addNewSubjectDialog(): void {
     const dialogRef = this.dialog.open(AddSubjectDialogComponent, {
       width: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadData();
+      }
+    });
+  }
+
+  editSubjectDialog(subjectId: number, subjectName: string, subjectCategoryName: string, subjectColor: string): void {
+    const dialogRef = this.dialog.open(AddSubjectDialogComponent, {
+      width: '500px',
+      data: { subjectId, subjectName, subjectCategoryName, subjectColor }
     });
 
     dialogRef.afterClosed().subscribe(result => {

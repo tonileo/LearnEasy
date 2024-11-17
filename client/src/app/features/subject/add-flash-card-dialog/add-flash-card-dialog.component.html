@@ -7,12 +7,12 @@
         <form [formGroup]="addFlashCardForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-1">
             <mat-form-field appearance="outline">
                 <mat-label>Question</mat-label>
-                <input matInput formControlName="question" type="text" placeholder="Is this a random question?">
+                <input matInput formControlName="question" type="text" placeholder="Is this a random question?" required>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Answear</mat-label>
-                <input matInput formControlName="answear" type="text" placeholder="Yes">
+                <input matInput formControlName="answear" type="text" placeholder="Yes" required>
             </mat-form-field>
 
             <!-- <button mat-flat-button type="submit" class="mt-4">Create another flashcard</button> -->
