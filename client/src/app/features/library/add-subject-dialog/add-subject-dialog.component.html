@@ -7,7 +7,7 @@
         <form [formGroup]="addSubjectForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-1">
             <mat-form-field appearance="outline">
                 <mat-label>Title</mat-label>
-                <input matInput formControlName="name" type="text" placeholder="Math 1">
+                <input matInput formControlName="name" type="text" placeholder="Math 1" required>
             </mat-form-field>
 
             <mat-form-field appearance="outline" color="primary">
@@ -19,17 +19,21 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Color</mat-label>
-                <mat-select formControlName="color" required>
-                    <mat-option value="blue">Blue</mat-option>
-                    <mat-option value="red">red</mat-option>
-                    <mat-option value="purple">purple</mat-option>
-                    <mat-option value="green">green</mat-option>
-                </mat-select>
-            </mat-form-field>
+            <div class="colorDiv justify-between p-3">
+                <div
+                  *ngFor="let color of colors"
+                  class="colorOption relative"
+                  [class.selected]="addSubjectForm.get('color')?.value === color.value"
+                  [ngStyle]="{ 'background-color': color.value }"
+                  (click)="selectColor(color.value)"
+                >
+                <div *ngIf="addSubjectForm.get('color')?.value === color.value" class="checkmark">
+                    ✓
+                </div>
+            </div>
+            </div>
 
-            <button mat-flat-button type="submit" class="mt-4">Create</button>
+            <button mat-flat-button type="submit" class="mt-5">Create</button>
         </form>
     </mat-card-content>
 </mat-card>

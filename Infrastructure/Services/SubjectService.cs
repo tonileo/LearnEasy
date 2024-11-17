@@ -45,6 +45,13 @@ public class SubjectService(AppDbContext context) : ISubjectService
 
     public async Task AddSubject(SubjectRequestDto subjectRequestDto)
     {
+        if (subjectRequestDto.Color != "blue" && subjectRequestDto.Color != "red" && subjectRequestDto.Color != "purple"
+            && subjectRequestDto.Color != "green" && subjectRequestDto.Color != "orange" && subjectRequestDto.Color != "yellow"
+            && subjectRequestDto.Color != "lightblue")
+        {
+            throw new InvalidOperationException("Color picked is not allowed!");
+        }
+
         try
         {
             var subjectNames = await context.Subjects.Where(x => x.Name == subjectRequestDto.Name).FirstOrDefaultAsync();

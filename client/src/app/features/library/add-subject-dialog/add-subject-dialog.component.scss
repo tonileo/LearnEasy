@@ -2,16 +2,41 @@
     background-color: #12023c;
 }
 
-:host ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-text-field__input{
-    color: white;
+.colorDiv {
+    display: flex;
+    border-radius: 40px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #74777f;
 }
 
-:host ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-floating-label{
-    color: white;
+.colorOption {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
 }
 
-:host ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mat-mdc-notch-piece{
-    border-color: white;
+.colorOption.selected {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+}
+
+.colorOption:hover {
+    transform: scale(1.2);
+}
+
+.checkmark {
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+:host ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-text-field__input, .mat-mdc-select {
+    color: white;
 }
 
 h2 {

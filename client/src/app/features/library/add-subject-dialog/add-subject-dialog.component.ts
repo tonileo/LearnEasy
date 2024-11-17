@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { Category } from '../../../shared/models/category';
 import { LibraryService } from '../../../core/services/library.service';
 import { SubjectService } from '../../../core/services/subject.service';
+import { NgFor, NgIf, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-add-subject-dialog',
@@ -18,7 +19,10 @@ import { SubjectService } from '../../../core/services/subject.service';
     MatSelectModule,
     MatButton,
     ReactiveFormsModule,
-    MatCardModule
+    MatCardModule,
+    NgStyle,
+    NgFor,
+    NgIf
   ],
   templateUrl: './add-subject-dialog.component.html',
   styleUrl: './add-subject-dialog.component.scss'
@@ -30,11 +34,25 @@ export class AddSubjectDialogComponent implements OnInit{
   private subjectService = inject(SubjectService);
   categories: Category[] = [];
 
+  colors = [
+    { label: 'Blue', value: 'blue' },
+    { label: 'Red', value: 'red' },
+    { label: 'Purple', value: 'purple' },
+    { label: 'Green', value: 'green' },
+    { label: 'Orange', value: 'orange' },
+    { label: 'Yellow', value: 'yellow' },
+    { label: 'LightBlue', value: 'lightblue' }
+  ];
+
   addSubjectForm = this.fb.group({
     name: [''],
     categoryId: [''],
-    color: ['']
+    color: ['blue']
   })
+
+  selectColor(colorValue: string): void {
+    this.addSubjectForm.get('color')?.setValue(colorValue);
+  }
 
   ngOnInit(): void {
     this.libraryService.getAllCategories().subscribe({
