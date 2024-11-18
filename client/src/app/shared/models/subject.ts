@@ -1,6 +1,8 @@
+import { SmallFlashCard } from "./smallFlashCrd";
+
 export interface Subject {
     name: string;
-    flashCardQuestions: string[];
+    flashCards: SmallFlashCard[];
     noteNames: string[];
     pdfFileNames: string[];
 

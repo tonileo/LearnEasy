@@ -3,7 +3,7 @@ import { SubjectService } from '../../core/services/subject.service';
 import { Subject } from '../../shared/models/subject';
 import { MatButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddFlashCardDialogComponent } from './add-flash-card-dialog/add-flash-card-dialog.component';
 import { MatMenuModule } from '@angular/material/menu';
@@ -22,12 +22,13 @@ import { MatMenuModule } from '@angular/material/menu';
 })
 export class SubjectComponent implements OnInit {
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+  readonly dialog = inject(MatDialog);
+  private router = inject(Router);
   private subjectService = inject(SubjectService);
   private activatedRoute = inject(ActivatedRoute);
-  readonly dialog = inject(MatDialog);
 
   subject?: Subject;
-  subjectId?: string | null;
+  subjectId: string | null = null;
 
   ngOnInit(): void {
     this.loadSubject();
@@ -44,18 +45,16 @@ export class SubjectComponent implements OnInit {
   }
 
   addNewFlashCardDialog(): void {
-    if (this.subjectId) {
-      const dialogRef = this.dialog.open(AddFlashCardDialogComponent, {
-        width: "500px",
-        data: this.subjectId
-      });
+    const dialogRef = this.dialog.open(AddFlashCardDialogComponent, {
+      width: "500px",
+      data: this.subjectId
+    });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if (result == true) {
-          this.loadSubject();
-        }
-      });
-    }
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == true) {
+        this.loadSubject();
+      }
+    });
   }
 
   scrollLeft(): void {

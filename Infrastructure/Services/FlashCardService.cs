@@ -61,4 +61,29 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
             throw new InvalidOperationException("Problem with adding the FlashCard: " + ex.Message);
         }
     }
+
+    public async Task EditFlashCard(int flashCardId, FlashCardRequestDto flashCardDto)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(flashCardDto.Question) || string.IsNullOrEmpty(flashCardDto.Answear))
+            {
+                throw new InvalidOperationException("Both answear and question has to be filled");
+            }
+
+            var flashCard = await context.FlashCards.Where(x => x.Id == flashCardId).FirstOrDefaultAsync();
+
+            if (flashCard != null)
+            {
+                flashCard.Question = flashCardDto.Question;
+                flashCard.Answear = flashCardDto.Answear;
+            }
+
+            await context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("Problem with adding the FlashCard: " + ex.Message);
+        }
+    }
 }

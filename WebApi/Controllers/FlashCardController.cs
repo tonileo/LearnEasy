@@ -27,5 +27,13 @@ namespace WebApi.Controllers
 
             return Ok();
         }
+
+        [HttpPut]
+        public async Task<ActionResult> EditFlashCard(int flashCardId, FlashCardRequestDto flashCardDto)
+        {
+            await flashCardService.EditFlashCard(flashCardId, flashCardDto);
+
+            return Ok();
+        }
     }
 }

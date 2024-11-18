@@ -20,15 +20,27 @@ public class SubjectService(AppDbContext context) : ISubjectService
             .SingleOrDefaultAsync(x => x.Id == id)
             ?? throw new InvalidOperationException($"No subject found with id {id}");
 
-            var flashCardQuestion = subject.FlashCards.Select(f => f.Question).Take(8).ToList<string?>();
+            var flashCards = subject.FlashCards.Take(8);
             var noteNames = subject.Notes.Select(x => x.Name).ToList();
             var pdfFileNames = subject.PdfFiles.Select(g => g.Name).ToList<string?>();
             var flashCardCount = subject.FlashCards.Count;
 
+            var smallFlashCardsList = new List<SmallFlashCardDto?>();
+            foreach (var flashCard in flashCards)
+            {
+                SmallFlashCardDto smallFlashCards = new SmallFlashCardDto
+                {
+                    Id = flashCard.Id,
+                    Question = flashCard.Question
+                };
+
+                smallFlashCardsList.Add(smallFlashCards);
+            }
+
             return new SubjectDto
             {
                 Name = subject.Name,
-                FlashCardQuestions = flashCardQuestion,
+                FlashCards = smallFlashCardsList,
                 NoteNames = noteNames,
                 PdfFileNames = pdfFileNames,
 

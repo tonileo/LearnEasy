@@ -16,6 +16,7 @@ builder.Services.AddScoped<SeedData>();
 builder.Services.AddScoped<ILibraryService, LibraryService>();
 builder.Services.AddScoped<ISubjectService, SubjectService>();
 builder.Services.AddScoped<IFlashCardService, FlashCardService>();
+builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddCors();
 
 builder.Services.AddEndpointsApiExplorer();

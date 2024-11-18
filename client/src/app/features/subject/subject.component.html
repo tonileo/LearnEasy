@@ -23,7 +23,7 @@
       }
     </div>
 
-    @if (subject.flashCardsCount == 0){
+    @if (subject.flashCardsCount === 0){
     <div class="noElementsDiv">
       <mat-icon class="flex my-auto align-middle content-center justify-center items-center">library_add</mat-icon>
 
@@ -48,11 +48,11 @@
       }
 
       <div #scrollContainer class="flex gap-2 mt-2 overflow-hidden">
-        @for (question of subject.flashCardQuestions; track $index) {
+        @for (flashcard of subject.flashCards; track $index) {
         <a class="customClickableBlock flex-none block h-36 pb-1 overflow-auto">
           <div class="content flex flex-col h-full">
             <div class="mt-auto text-center">
-              <p class="text-xl">{{ question }}</p>
+              <p class="text-xl">{{ flashcard.question }}</p>
             </div>
 
             <div class="mt-auto flex border-t pt-1.5">
@@ -61,7 +61,7 @@
               </button>
               <mat-menu #menu="matMenu">
                 <button mat-menu-item>
-                  Edit
+                  Add a tag
                 </button>
 
                 <button mat-menu-item>
@@ -93,7 +93,7 @@
       </p>
     </div>
 
-    @if (subject.pdfFilesCount == 0){
+    @if (subject.pdfFilesCount === 0){
       <div class="noElementsDiv">
         <mat-icon class="flex my-auto align-middle content-center justify-center items-center">attach_file_add</mat-icon>
   
@@ -117,7 +117,7 @@
       </p>
     </div>
 
-    @if (subject.notesCount == 0){
+    @if (subject.notesCount === 0){
       <div class="noElementsDiv">
         <mat-icon class="flex my-auto align-middle content-center justify-center items-center">note_add</mat-icon>
   

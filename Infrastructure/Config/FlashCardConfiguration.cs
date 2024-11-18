@@ -17,6 +17,7 @@ public class FlashCardConfiguration : IEntityTypeConfiguration<FlashCard>
         builder.HasOne(d => d.Tag)
             .WithMany(e => e.FlashCards)
             .HasForeignKey(f => f.TagId)
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.NoAction);
     }
 }
