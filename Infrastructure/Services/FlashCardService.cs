@@ -37,6 +37,34 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
         }
     }
 
+    public async Task<FlashCardDto> GetFlashCard(int flashCardId)
+    {
+        try
+        {
+            var flashCards = await context.FlashCards
+                .Include(x => x.Tag)
+                .Where(x => x.Id == flashCardId)
+                .AsNoTracking()
+                .FirstOrDefaultAsync() 
+                    ?? throw new ArgumentException("There is no flashCard with that id");
+
+            var flashCard = new FlashCardDto()
+            {
+                Id = flashCards.Id,
+                Question = flashCards.Question,
+                Answear = flashCards.Answear,
+                TagId = flashCards.TagId,
+                TagName = flashCards.Tag?.Name
+            };
+
+            return flashCard;
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("Problem with fetching the FlashCard: " + ex.Message);
+        }
+    }
+
     public async Task AddFlashCard(int subjectId, FlashCardRequestDto flashCardDto)
     {
         try
@@ -50,6 +78,7 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
             {
                 Question = flashCardDto.Question,
                 Answear = flashCardDto.Answear,
+                TagId = flashCardDto.TagId,
                 SubjectId = subjectId
             };
 
@@ -77,6 +106,7 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
             {
                 flashCard.Question = flashCardDto.Question;
                 flashCard.Answear = flashCardDto.Answear;
+                flashCard.TagId = flashCardDto.TagId;
             }
 
             await context.SaveChangesAsync();

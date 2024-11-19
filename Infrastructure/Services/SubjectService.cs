@@ -15,6 +15,7 @@ public class SubjectService(AppDbContext context) : ISubjectService
         {
             var subject = await context.Subjects
             .Include(f => f.FlashCards)
+            .ThenInclude(f => f.Tag)
             .Include(z => z.Notes)
             .Include(g => g.PdfFiles)
             .SingleOrDefaultAsync(x => x.Id == id)
@@ -31,7 +32,8 @@ public class SubjectService(AppDbContext context) : ISubjectService
                 SmallFlashCardDto smallFlashCards = new SmallFlashCardDto
                 {
                     Id = flashCard.Id,
-                    Question = flashCard.Question
+                    Question = flashCard.Question,
+                    TagName = flashCard.Tag?.Name
                 };
 
                 smallFlashCardsList.Add(smallFlashCards);

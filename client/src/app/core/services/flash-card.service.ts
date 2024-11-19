@@ -11,10 +11,18 @@ export class FlashCardService {
   private http = inject(HttpClient);
 
   getFlashCards(){
-    return this.http.get<FlashCard[]>(this.baseUrl + 'flashCard');
+    return this.http.get<FlashCard[]>(this.baseUrl + 'flashCard/subject');
+  }
+
+  getFlashCard(flashCardId: number){
+    return this.http.get<FlashCard>(this.baseUrl + 'flashCard/' + flashCardId);
   }
 
   addFlashCard(subjectId: number, values: any){
     return this.http.post(this.baseUrl + 'flashCard?subjectId=' + subjectId, values);
+  }
+
+  editFlashCard(flashCardId: number, values: any){
+    return this.http.put(this.baseUrl + 'flashCard?flashCardId=' + flashCardId, values);
   }
 }

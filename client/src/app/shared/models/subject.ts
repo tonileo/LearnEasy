@@ -1,4 +1,4 @@
-import { SmallFlashCard } from "./smallFlashCrd";
+import { SmallFlashCard } from "./smallFlashCard";
 
 export interface Subject {
     name: string;

@@ -10,12 +10,22 @@ namespace WebApi.Controllers
     [ApiController]
     public class FlashCardController(IFlashCardService flashCardService) : ControllerBase
     {
-        [HttpGet("{subjectId}")]
+        [HttpGet("subject/{subjectId}")]
         public async Task<ActionResult<IEnumerable<FlashCardDto>>> GetFlashCards(int subjectId)
         {
             var result = await flashCardService.GetFlashCards(subjectId);
 
-            if (result == null) return BadRequest("Problem with fetching subject");
+            if (result == null) return BadRequest("Problem with fetching flashcards");
+
+            return result;
+        }
+
+        [HttpGet("{flashCardId}")]
+        public async Task<ActionResult<FlashCardDto>> GetFlashCard(int flashCardId)
+        {
+            var result = await flashCardService.GetFlashCard(flashCardId);
+
+            if (result == null) return BadRequest("Problem with fetching the flashcard");
 
             return result;
         }

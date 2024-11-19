@@ -1,10 +1,14 @@
 <mat-card class="p-8 dialog border bg-white">
     <mat-card-header class="justify-center">
-        <h2 class="text-center font-semibold pb-7">Create new flashcard</h2>
+        @if (matDialogData.flashCardId) {
+            <h2 class="text-center font-semibold pb-7">Edit flashcard</h2>
+        }@else {
+            <h2 class="text-center font-semibold pb-7">Create new flashcard</h2>
+        }
     </mat-card-header>
 
     <mat-card-content>
-        <form [formGroup]="addFlashCardForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-1">
+        <form [formGroup]="addFlashCardForm" class="flex flex-col gap-1">
             <mat-form-field appearance="outline">
                 <mat-label>Question</mat-label>
                 <input matInput formControlName="question" type="text" placeholder="Is this a random question?"
@@ -19,8 +23,9 @@
             @if (!addTagInput) {
             <div class="flex">
                 <mat-form-field appearance="outline" class="flex-grow mr-4">
-                    <mat-label>Tag</mat-label>
-                    <mat-select formControlName="tagId">
+                    <mat-label>Tag - optional</mat-label>
+                    <mat-select formControlName="tagId" placeholder="1.semester">
+                        <mat-option [value]="null">-</mat-option>
                         @for (tag of tags; track $index) {
                         <mat-option [value]="tag.id">{{tag.name}}</mat-option>
                         }
@@ -44,8 +49,17 @@
             </form>
             }
 
-            <!-- <button mat-flat-button type="submit" class="mt-4">Create another flashcard</button> -->
-            <button mat-flat-button type="submit" [disabled]="addTagInput === true" class="mt-4">Create the flashcard</button>
+            @if (matDialogData.flashCardId) {
+                <button mat-flat-button (click)="editFlashCard()" [disabled]="addTagInput === true" class="mt-4">
+                    Edit flashcard
+                </button>
+            }@else {
+                <!-- <button mat-flat-button type="submit" class="mt-4">Create another flashcard</button> -->
+                <button mat-flat-button (click)="addFlashCard()" [disabled]="addTagInput === true" class="mt-4">
+                    Create the flashcard
+                </button>
+            }
+            
         </form>
     </mat-card-content>
 </mat-card>

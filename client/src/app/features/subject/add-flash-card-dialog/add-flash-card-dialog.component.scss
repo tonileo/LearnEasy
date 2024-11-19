@@ -10,6 +10,10 @@ h2 {
     font-size: 28px;
 }
 
+.mat-mdc-raised-button{
+    height: 45px;
+}
+
 :host ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-text-field__input, .mat-mdc-select {
     color: white;
 }

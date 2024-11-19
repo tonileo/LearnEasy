@@ -28,29 +28,39 @@ export class AddFlashCardDialogComponent implements OnInit {
   private fb = inject(FormBuilder);
   private flashCardService = inject(FlashCardService);
   private tagService = inject(TagService);
-  public subjectId = inject(MAT_DIALOG_DATA);
+  public matDialogData = inject(MAT_DIALOG_DATA);
   public addTagInput: boolean = false;
   public tags?: Tag[] = [];
 
   addFlashCardForm = this.fb.group({
     question: [''],
     answear: [''],
-    tagId: 0
+    tagId: [null as number | null]
   })
 
   addTagForm = this.fb.group({
     name: ['']
   })
 
+  ngOnInit(): void {
+    this.loadData();
+  }
+
   loadData() {
     this.tagService.getTags().subscribe({
       next: response => this.tags = response,
       error: error => console.error(error)
     });
-  }
 
-  ngOnInit(): void {
-    this.loadData();
+    if (this.matDialogData.flashCardId){
+      this.flashCardService.getFlashCard(this.matDialogData.flashCardId).subscribe({
+        next: result => {
+          this.addFlashCardForm.get('question')?.setValue(result.question);
+          this.addFlashCardForm.get('answear')?.setValue(result.answear);
+          this.addFlashCardForm.get('tagId')?.setValue(result.tagId);
+        }
+      })
+    }
   }
 
   addTagInterface() {
@@ -73,8 +83,9 @@ export class AddFlashCardDialogComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    this.flashCardService.addFlashCard(this.subjectId, this.addFlashCardForm.value).subscribe({
+  addFlashCard() {
+    const subjectId = this.matDialogData.subjectId;
+    this.flashCardService.addFlashCard(subjectId, this.addFlashCardForm.value).subscribe({
       next: () => {
         this.dialogRef.close(true);
       },
@@ -82,4 +93,13 @@ export class AddFlashCardDialogComponent implements OnInit {
     });
   }
 
+  editFlashCard() {
+    const flashCardId = this.matDialogData.flashCardId;
+    this.flashCardService.editFlashCard(flashCardId, this.addFlashCardForm.value).subscribe({
+      next: () => {
+        this.dialogRef.close(true);
+      },
+      error: error => console.error(error)
+    });
+  }
 }
