@@ -1,0 +1,14 @@
+<mat-card class="p-4 dialog border bg-white">
+    <mat-card-header class="justify-center">
+        <h2 class="text-lg font-semibold mb-6">{{matDialogData.title}}</h2>
+    </mat-card-header>
+
+    <mat-card-content class="mb-4">
+        <p>{{matDialogData.message}}</p>
+    </mat-card-content>
+
+    <div class="flex justify-end gap-2 p-2">
+        <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+        <button mat-raised-button (click)="onConfirm()">Confirm</button>
+    </div>
+</mat-card>

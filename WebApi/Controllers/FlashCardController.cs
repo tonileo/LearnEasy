@@ -45,5 +45,13 @@ namespace WebApi.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteFlashCard(int id)
+        {
+            await flashCardService.DeleteFlashCard(id);
+
+            return Ok();
+        }
     }
 }

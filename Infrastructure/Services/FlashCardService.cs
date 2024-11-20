@@ -116,4 +116,20 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
             throw new InvalidOperationException("Problem with adding the FlashCard: " + ex.Message);
         }
     }
+
+    public async Task DeleteFlashCard(int id)
+    {
+        try
+        {
+            var flashCard = await context.FlashCards.Where(x => x.Id == id).FirstOrDefaultAsync()
+                ?? throw new InvalidOperationException("Flashcard with that id doesn't exists!");
+
+            context.FlashCards.Remove(flashCard);
+            await context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("Problem with adding the FlashCard: " + ex.Message);
+        }
+    }
 }

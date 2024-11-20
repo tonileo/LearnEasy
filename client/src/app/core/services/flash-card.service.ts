@@ -25,4 +25,8 @@ export class FlashCardService {
   editFlashCard(flashCardId: number, values: any){
     return this.http.put(this.baseUrl + 'flashCard?flashCardId=' + flashCardId, values);
   }
+
+  deleteFlashCard(id: number){
+    return this.http.delete(this.baseUrl + 'flashCard/' + id);
+  }
 }

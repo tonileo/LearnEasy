@@ -125,4 +125,20 @@ public class SubjectService(AppDbContext context) : ISubjectService
             throw new InvalidOperationException("Problem with editing the subject! " + ex.Message);
         }
     }
+
+    public async Task DeleteSubject(int id)
+    {
+        try
+        {
+            var subject = await context.Subjects.Where(x => x.Id == id).FirstOrDefaultAsync() 
+                ?? throw new InvalidOperationException("Subject with that id doesn't exists!");
+
+            context.Subjects.Remove(subject);
+            await context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("Problem with deleting the subject! " + ex.Message);
+        }
+    }
 }

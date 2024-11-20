@@ -7,6 +7,8 @@ import { AddSubjectDialogComponent } from './add-subject-dialog/add-subject-dial
 import { LibraryService } from '../../core/services/library.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { DialogService } from '../../core/services/dialog.service';
+import { SubjectService } from '../../core/services/subject.service';
 
 @Component({
   selector: 'app-library',
@@ -23,6 +25,8 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class LibraryComponent implements OnInit {
   private libraryService = inject(LibraryService);
+  private dialogService = inject(DialogService);
+  private subjectService = inject(SubjectService);
   readonly dialog = inject(MatDialog);
   subjectCards: SubjectCard[] = [];
 
@@ -59,6 +63,20 @@ export class LibraryComponent implements OnInit {
       if (result) {
         this.loadData();
       }
+    });
+  }
+
+  async openConfirmDialog(id: number){
+    const confirmed = await this.dialogService.confirm(
+      'Delete subject', 'Are you sure you want to delete this subject?'
+    )
+    if(confirmed) this.deleteSubject(id);
+  }
+
+  deleteSubject(id: number){
+    this.subjectService.deleteSubject(id).subscribe({
+      next: () => this.loadData(),
+      error: error => console.error(error)
     });
   }
 }

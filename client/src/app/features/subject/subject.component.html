@@ -6,7 +6,7 @@
       + Add new flashcard
     </button>
 
-    <button mat-flat-button class="my-auto mr-6">
+    <button mat-flat-button class="my-auto mr-6" (click)="redirectToLearn()">
       <mat-icon>school</mat-icon>
       Start Learning
     </button>
@@ -70,7 +70,7 @@
                   Edit
                 </button>
 
-                <button mat-menu-item>
+                <button mat-menu-item (click)="openConfirmDialog(+flashcard.id)">
                   Delete
                 </button>
               </mat-menu>

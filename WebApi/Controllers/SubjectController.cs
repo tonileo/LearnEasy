@@ -35,5 +35,13 @@ namespace WebApi.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteSubject(int id)
+        {
+            await subjectService.DeleteSubject(id);
+
+            return Ok();
+        }
     }
 }

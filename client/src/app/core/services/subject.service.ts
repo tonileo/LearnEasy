@@ -21,4 +21,8 @@ export class SubjectService {
   getSubject(id: number){
     return this.http.get<Subject>(this.baseUrl + 'subject/' + id)
   }
+
+  deleteSubject(id: number){
+    return this.http.delete(this.baseUrl + 'subject/' + id)
+  }
 }

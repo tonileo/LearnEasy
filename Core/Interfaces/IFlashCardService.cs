@@ -9,4 +9,5 @@ public interface IFlashCardService
     Task<FlashCardDto> GetFlashCard(int flashCardId);
     Task AddFlashCard(int subjectId, FlashCardRequestDto flashCardDto);
     Task EditFlashCard(int flashCardId, FlashCardRequestDto flashCardDto);
+    Task DeleteFlashCard(int id);
 }
