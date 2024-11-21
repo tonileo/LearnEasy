@@ -1,4 +1,3 @@
-using System;
 using Core.Entities.Abstractions;
 
 namespace Core.Entities;

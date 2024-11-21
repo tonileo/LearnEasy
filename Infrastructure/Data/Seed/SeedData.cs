@@ -1,4 +1,3 @@
-using System;
 using Core.Entities;
 
 namespace Infrastructure.Data.Seed;

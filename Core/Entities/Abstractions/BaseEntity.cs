@@ -1,5 +1,3 @@
-using System;
-
 namespace Core.Entities.Abstractions;
 
 public class BaseEntity
