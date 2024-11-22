@@ -1,4 +1,3 @@
-using System;
 using Core.DTOs;
 using Core.Entities;
 using Core.Interfaces;
@@ -130,6 +129,39 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
         catch (Exception ex)
         {
             throw new InvalidOperationException("Problem with adding the FlashCard: " + ex.Message);
+        }
+    }
+
+    public async Task<List<FlashCardDto>> GetRandomFlashCards(int subjectId)
+    {
+        try
+        {
+            var flashCards = await context.FlashCards
+                .Where(x => x.SubjectId == subjectId)
+                .AsNoTracking()
+                .ToListAsync();
+
+            var randomFlashCards = flashCards
+                .OrderBy(_ => Guid.NewGuid())
+                .Take(20)
+                .ToList();
+
+            var flashCardList = new List<FlashCardDto>();
+            foreach (var flashCard in randomFlashCards)
+            {
+                flashCardList.Add(new FlashCardDto()
+                {
+                    Id = flashCard.Id,
+                    Question = flashCard.Question,
+                    Answear = flashCard.Answear
+                });
+            }
+
+            return flashCardList;
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("Problem with loading FlashCards: " + ex.Message);
         }
     }
 }

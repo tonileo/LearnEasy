@@ -29,4 +29,8 @@ export class FlashCardService {
   deleteFlashCard(id: number){
     return this.http.delete(this.baseUrl + 'flashCard/' + id);
   }
+
+  getRandomFlashCards(id: number){
+    return this.http.get<FlashCard[]>(this.baseUrl + 'flashCard/learn/' + id);
+  }
 }

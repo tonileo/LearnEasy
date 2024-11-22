@@ -1,7 +1,5 @@
 using Core.DTOs;
 using Core.Interfaces;
-using Infrastructure.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -52,6 +50,16 @@ namespace WebApi.Controllers
             await flashCardService.DeleteFlashCard(id);
 
             return Ok();
+        }
+
+        [HttpGet("learn/{subjectId}")]
+        public async Task<ActionResult<IEnumerable<FlashCardDto>>> GetRandomFlashCards(int subjectId)
+        {
+            var result = await flashCardService.GetRandomFlashCards(subjectId);
+
+            if (result == null) return BadRequest("Problem with fetching flashcards");
+
+            return result;
         }
     }
 }

@@ -1,55 +1,73 @@
-<div class="py-5 h-full">
+<div class="py-5">
     <div class="flex">
         <header class="text-4xl p-4 font-bold">Learning SUBJECTX</header>
     </div>
 
-    <div class="ml-1 pl-3 pb-3 text-">
-        For loop here
+    <div class="ml-1 pl-3 pb-3">
+        For loop here - {{index + 1}} of {{flashCards.length}}
     </div>
 
     <div class="flex flex-col p-4 border-t border-t-gray-600 items-center h-full">
-        <div class="flashCardDiv flex flex-col border border-gray-600 rounded-2xl">
-            <div class="p-5 text-blue-500">
-                Tag here
+        <div class="flashCardDiv border border-gray-600 rounded-2xl">
+            <div class="flex p-5">
+                @if (flashCards[index].tagName) {
+                <div class="text-blue-500">
+                    {{flashCards[index].tagName}}
+                </div>
+                }@else {
+                <div>
+                    No tags
+                </div>
+                }
+
+                <div class="ml-auto">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="editFlashCard()">
+                            Edit
+                        </button>
+
+                        <button mat-menu-item (click)="deleteFlashCard()">
+                            Delete
+                        </button>
+                    </mat-menu>
+                </div>
             </div>
 
             <div class="flex p-8 mb-8 questionDiv justify-center">
-                question
+                question {{flashCards[index].question}}
             </div>
-            
-            <div class="flex p-10 justify-center text-2xl border-t border-t-gray-600" (click)="showAnswear()">
+
+            <div class="flex p-10 justify-center items-center text-2xl border-t border-t-gray-600 align-middle" (click)="showAnswear()">
                 @if (!answearClicked) {
                 <a class="mt-6 text-blue-500">
                     Show answear
                 </a>
                 }@else {
-                    <p class="mt-6">Answear example...</p>
+                <p class="mt-6">Answear example... {{flashCards[index].answear}}</p>
                 }
             </div>
-            
+
         </div>
 
         <div class="flex px-4 pt-4 justify-center gap-1.5">
-            <div class="buttonDiv bg-red-800">
-                <button class="flex flex-col">
-                    <mat-icon>home</mat-icon>
-                    <p class="mt-2">Bad</p>
-                </button>
-            </div>
+            <a class="buttonA bg-red-800" (click)="nextFlashCard()">
+                <mat-icon>home</mat-icon>
+                <p class="mt-2">Bad</p>
+            </a>
 
-            <div class="buttonDiv bg-yellow-700">
-                <button class="flex flex-col">
-                    <mat-icon>home</mat-icon>
-                    <p class="mt-2">Ok</p>
-                </button>
-            </div>
+            <a class="buttonA bg-yellow-700" (click)="nextFlashCard()">
+                <mat-icon>home</mat-icon>
+                <p class="mt-2">Ok</p>
+            </a>
 
-            <div class="buttonDiv bg-green-900">
-                <button class="flex flex-col">
-                    <mat-icon>home</mat-icon>
-                    <p class="mt-2">Great</p>
-                </button>
-            </div>
+            <a class="buttonA bg-green-900" (click)="nextFlashCard()">
+                <mat-icon>home</mat-icon>
+                <p class="mt-2">Great</p>
+            </a>
         </div>
     </div>
 </div>

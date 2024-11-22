@@ -1,4 +1,3 @@
-using System;
 using Core.DTOs;
 
 namespace Core.Interfaces;
@@ -10,4 +9,5 @@ public interface IFlashCardService
     Task AddFlashCard(int subjectId, FlashCardRequestDto flashCardDto);
     Task EditFlashCard(int flashCardId, FlashCardRequestDto flashCardDto);
     Task DeleteFlashCard(int id);
+    Task<List<FlashCardDto>> GetRandomFlashCards(int subjectId);
 }
