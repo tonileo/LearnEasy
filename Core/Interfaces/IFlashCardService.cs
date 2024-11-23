@@ -10,4 +10,5 @@ public interface IFlashCardService
     Task EditFlashCard(int flashCardId, FlashCardRequestDto flashCardDto);
     Task DeleteFlashCard(int id);
     Task<List<FlashCardDto>> GetRandomFlashCards(int subjectId);
+    Task PatchLastReviewedFlashCard(List<FlashCardReviewedListDto> flashCardReviewedList);
 }

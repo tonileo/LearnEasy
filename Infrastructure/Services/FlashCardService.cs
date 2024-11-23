@@ -44,7 +44,7 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
                 .Include(x => x.Tag)
                 .Where(x => x.Id == flashCardId)
                 .AsNoTracking()
-                .FirstOrDefaultAsync() 
+                .FirstOrDefaultAsync()
                     ?? throw new ArgumentException("There is no flashCard with that id");
 
             var flashCard = new FlashCardDto()
@@ -162,6 +162,33 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
         catch (Exception ex)
         {
             throw new InvalidOperationException("Problem with loading FlashCards: " + ex.Message);
+        }
+    }
+
+    public async Task PatchLastReviewedFlashCard(List<FlashCardReviewedListDto> flashCardReviewedList)
+    {
+        try
+        {
+            if (flashCardReviewedList == null || !flashCardReviewedList.Any())
+            {
+                throw new InvalidOperationException("No flashcards to update");
+            }
+
+            foreach (var flashcardReview in flashCardReviewedList)
+            {
+                var flashCard = await context.FlashCards
+                .Where(x => x.Id == flashcardReview.Id)
+                .FirstOrDefaultAsync() 
+                    ?? throw new InvalidOperationException($"Flashcard with ID {flashcardReview.Id} does not exist");
+
+                flashCard.LastReviewed = DateTime.Now;
+            }
+
+            await context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("Problem with updating reviewed flashCards: " + ex.Message);
         }
     }
 }

@@ -2,8 +2,9 @@ import { Component, inject, numberAttribute, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlashCardService } from '../../core/services/flash-card.service';
 import { FlashCard } from '../../shared/models/flashCard';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
+import { FlashCardReviewedList } from '../../shared/models/flashCardReviewedList';
 
 @Component({
   selector: 'app-learn',
@@ -18,19 +19,23 @@ import { MatMenuModule } from '@angular/material/menu';
 export class LearnComponent implements OnInit{
   private flashCardService = inject(FlashCardService);
   private activatedRoute = inject(ActivatedRoute)
+  private router = inject(Router);
 
+  private subjectId?: string | null;
   public answearClicked: boolean = false;
   public index: number = 0;
   public flashCards: FlashCard[] = [];
 
   ngOnInit(): void {
-    const subjectId: string | null = this.activatedRoute.snapshot.paramMap.get('id');
-    if (!subjectId) return;
+    console.log(this.flashCards);
+    this.subjectId = this.activatedRoute.snapshot.paramMap.get('id');
+    if (!this.subjectId) return;
 
-    this.flashCardService.getRandomFlashCards(+subjectId).subscribe({
+    this.flashCardService.getRandomFlashCards(+this.subjectId).subscribe({
       next: result => this.flashCards = result,
       error: error => console.error(error)
     });
+    console.log(this.flashCards);
   }
 
   showAnswear(){
@@ -42,15 +47,22 @@ export class LearnComponent implements OnInit{
     if (this.index < this.flashCards.length - 1){
       this.index++;
     }else{
-
+      this.submitReviewedFlashCards();
     }
   }
 
-  editFlashCard(){
+  submitReviewedFlashCards(){
+    const reviewedFlashCards: FlashCardReviewedList[] = this.flashCards.map(card => ({
+      id: card.id
+    }));
 
+    this.flashCardService.patchLastReviewedFlashCard(reviewedFlashCards).subscribe({
+      next: () => {
+        this.router.navigateByUrl("/subject/" + this.subjectId);
+      }
+    });
   }
 
-  deleteFlashCard(){
-    
-  }
+  editFlashCard(){}
+  deleteFlashCard(){}
 }

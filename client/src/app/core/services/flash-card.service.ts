@@ -33,4 +33,8 @@ export class FlashCardService {
   getRandomFlashCards(id: number){
     return this.http.get<FlashCard[]>(this.baseUrl + 'flashCard/learn/' + id);
   }
+
+  patchLastReviewedFlashCard(values: any){
+    return this.http.patch(this.baseUrl + 'flashCard/learn', values);
+  }
 }

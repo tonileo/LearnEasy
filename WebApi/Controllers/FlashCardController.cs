@@ -61,5 +61,13 @@ namespace WebApi.Controllers
 
             return result;
         }
+
+        [HttpPatch("learn")]
+        public async Task<ActionResult> PatchLastReviewedFlashCard(List<FlashCardReviewedListDto> flashCardReviewedList)
+        {
+            await flashCardService.PatchLastReviewedFlashCard(flashCardReviewedList);
+
+            return Ok();
+        }
     }
 }

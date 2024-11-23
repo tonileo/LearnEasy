@@ -11,6 +11,8 @@ public class FlashCard : BaseEntity
     [Required]
     public required string Answear { get; set; }
 
+    public DateTime? LastReviewed { get; set; }
+
     [Required]
     public int SubjectId { get; set; }
     
