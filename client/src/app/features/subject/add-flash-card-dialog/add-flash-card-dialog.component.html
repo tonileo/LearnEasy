@@ -11,13 +11,13 @@
         <form [formGroup]="addFlashCardForm" class="flex flex-col gap-1">
             <mat-form-field appearance="outline">
                 <mat-label>Question</mat-label>
-                <input matInput formControlName="question" type="text" placeholder="Is this a random question?"
-                    required>
+                <textarea matInput formControlName="question" placeholder="Is this a random question?" rows="3"
+                    required></textarea>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Answear</mat-label>
-                <input matInput formControlName="answear" type="text" placeholder="Yes" required>
+                <textarea matInput formControlName="answear" placeholder="Yes" rows="3" required></textarea>
             </mat-form-field>
 
             @if (!addTagInput) {

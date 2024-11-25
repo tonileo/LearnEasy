@@ -8,5 +8,11 @@
 }
 
 .navs:hover{
-    background-color: #12013f;
+    background-color: #332252;
+}
+
+a{
+    &.active {
+        background-color: #12013f;
+    }
 }

@@ -8,12 +8,14 @@ import { FlashCardService } from '../../../core/services/flash-card.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Tag } from '../../../shared/models/tag';
 import { TagService } from '../../../core/services/tag.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-add-flash-card-dialog',
   standalone: true,
   imports: [
     MatInputModule,
+    MatFormFieldModule,
     FormsModule,
     MatSelectModule,
     MatButton,

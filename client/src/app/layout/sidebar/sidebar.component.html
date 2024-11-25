@@ -4,17 +4,17 @@
                 <mat-icon class="min-h-10 min-w-10 text-4xl">school</mat-icon>
             </a>
     
-            <a class="navs" routerLink="/">
+            <a class="navs" routerLink="/" [ngClass]="{ 'active': isHomeActive() }">
                 <mat-icon>home</mat-icon>
                 <span class="text-lg">Home</span>
             </a>
     
-            <a class="navs" routerLink="/stats">
+            <a class="navs" routerLink="/stats" routerLinkActive="active">
                 <mat-icon>query_stats</mat-icon>
                 <span class="text-lg">Statistics</span>
             </a>
 
-            <a class="navs" routerLink="/profile">
+            <a class="navs" routerLink="/profile" routerLinkActive="active">
                 <mat-icon>account_circle</mat-icon>
                 <span class="text-lg">Profile</span>
             </a>
