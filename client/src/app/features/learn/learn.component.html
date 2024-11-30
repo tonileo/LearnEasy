@@ -27,11 +27,11 @@
                         </button>
     
                         <mat-menu #menu="matMenu">
-                            <button mat-menu-item (click)="editFlashCard()">
+                            <button mat-menu-item (click)="editFlashCard(+flashCards[index].id, index)">
                                 Edit
                             </button>
     
-                            <button mat-menu-item (click)="deleteFlashCard()">
+                            <button mat-menu-item (click)="openConfirmDialog(+flashCards[index].id)">
                                 Delete
                             </button>
                         </mat-menu>

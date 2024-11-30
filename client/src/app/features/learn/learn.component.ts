@@ -5,6 +5,9 @@ import { FlashCard } from '../../shared/models/flashCard';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { FlashCardReviewedList } from '../../shared/models/flashCardReviewedList';
+import { DialogService } from '../../core/services/dialog.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddFlashCardDialogComponent } from '../subject/add-flash-card-dialog/add-flash-card-dialog.component';
 
 @Component({
   selector: 'app-learn',
@@ -16,9 +19,11 @@ import { FlashCardReviewedList } from '../../shared/models/flashCardReviewedList
   templateUrl: './learn.component.html',
   styleUrl: './learn.component.scss'
 })
-export class LearnComponent implements OnInit{
+export class LearnComponent implements OnInit {
   private flashCardService = inject(FlashCardService);
-  private activatedRoute = inject(ActivatedRoute)
+  private activatedRoute = inject(ActivatedRoute);
+  private dialogService = inject(DialogService);
+  readonly dialog = inject(MatDialog);
   private router = inject(Router);
 
   private subjectId?: string | null;
@@ -38,20 +43,20 @@ export class LearnComponent implements OnInit{
     console.log(this.flashCards);
   }
 
-  showAnswear(){
+  showAnswear() {
     this.answearClicked = !this.answearClicked;
   }
 
-  nextFlashCard(){
+  nextFlashCard() {
     this.answearClicked = false;
-    if (this.index < this.flashCards.length - 1){
+    if (this.index < this.flashCards.length - 1) {
       this.index++;
-    }else{
+    } else {
       this.submitReviewedFlashCards();
     }
   }
 
-  submitReviewedFlashCards(){
+  submitReviewedFlashCards() {
     const reviewedFlashCards: FlashCardReviewedList[] = this.flashCards.map(card => ({
       id: card.id
     }));
@@ -63,6 +68,30 @@ export class LearnComponent implements OnInit{
     });
   }
 
-  editFlashCard(){}
-  deleteFlashCard(){}
+  editFlashCard(flashCardId: number, index: number) {
+    const dialogRef = this.dialog.open(AddFlashCardDialogComponent, {
+      minWidth: "1000px",
+      data: {flashCardId}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == true) {
+        this.nextFlashCard();
+      }
+    });
+  }
+
+  async openConfirmDialog(id: number) {
+    const cofirmed = await this.dialogService.confirm
+      ("Delete this flash card?", "Are you sure you want to delete this flash card?");
+
+    if (cofirmed) this.deleteFlashCard(id);
+  }
+
+  deleteFlashCard(id: number) {
+    this.flashCardService.deleteFlashCard(id).subscribe({
+      next: () => this.nextFlashCard(),
+      error: error => console.error(error)
+    });
+  }
 }

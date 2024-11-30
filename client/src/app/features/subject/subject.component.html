@@ -49,7 +49,7 @@
 
       <div #scrollContainer class="flex gap-2 mt-2 overflow-hidden">
         @for (flashcard of subject.flashCards; track $index) {
-        <a class="customClickableBlock flex-none block h-36 pb-1 overflow-auto">
+        <a class="customClickableBlock flex-none block h-36 pb-1">
           <div class="content flex flex-col h-full">
             <div class="mt-auto text-center">
               <p class="text-xl">{{ flashcard.question }}</p>

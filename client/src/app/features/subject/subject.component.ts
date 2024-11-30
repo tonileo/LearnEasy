@@ -63,7 +63,6 @@ export class SubjectComponent implements OnInit {
   }
 
   editFlashCardDialog(flashCardId: number): void {
-    console.log(flashCardId);
     const dialogRef = this.dialog.open(AddFlashCardDialogComponent, {
       minWidth: "1000px",
       data: {flashCardId}
