@@ -5,9 +5,9 @@ namespace Core.DTOs;
 public class SubjectRequestDto
 {
     [Required]
-    public required string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
     public int CategoryId { get; set; }
 
     [Required]
-    public required string Color { get; set; }
+    public string Color { get; set; } = string.Empty;
 }

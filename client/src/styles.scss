@@ -36,6 +36,18 @@ html {
     border-radius: 0.125rem;
 }
 
+.mat-mdc-snack-bar-container.snack-error {
+    --mdc-snackbar-container-color: red;
+    --mat-snack-bar-button-color: white;
+    --mdc-snackbar-supporting-text-color: white;
+}
+
+.mat-mdc-snack-bar-container.snack-success {
+    --mdc-snackbar-container-color: green;
+    --mat-snack-bar-button-color: white;
+    --mdc-snackbar-supporting-text-color: white;
+}
+
 .mdc-text-field--outlined {
     --mdc-outlined-text-field-container-shape: 40px !important;
 }

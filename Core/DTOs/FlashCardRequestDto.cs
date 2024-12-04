@@ -1,8 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Core.DTOs;
 
 public class FlashCardRequestDto
 {
-    public required string Question { get; set; }
-    public required string Answear { get; set; }
+    [Required]
+    public string Question { get; set; } = string.Empty;
+
+    [Required]
+    public string Answear { get; set; } = string.Empty;
     public int? TagId { get; set; }
 }

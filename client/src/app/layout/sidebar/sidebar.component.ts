@@ -21,6 +21,7 @@ export class SidebarComponent {
   isHomeActive() : boolean {
     return this.router.url.startsWith('/') && 
                !this.router.url.startsWith('/stats') && 
-               !this.router.url.startsWith('/profile');
+               !this.router.url.startsWith('/profile') &&
+               !this.router.url.startsWith('/test-error');
   }
 }

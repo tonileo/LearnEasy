@@ -1,11 +1,19 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Core.DTOs;
 
 public class LibraryDto
 {
     public int SubjectId { get; set; }
-    public required string Name { get; set; }
-    public required string CategoryName { get; set; } = "Other";
-    public required string Color { get; set; } = "blue";
+
+    [Required]
+    public string Name { get; set; } = string.Empty;
+
+    [Required]
+    public string CategoryName { get; set; } = "Other";
+
+    [Required]
+    public string Color { get; set; } = "blue";
 
     public int FlashCardsCount { get; set; }
     public int PdfFilesCount { get; set; }

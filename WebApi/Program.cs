@@ -3,6 +3,7 @@ using Infrastructure.Data;
 using Infrastructure.Data.Seed;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
