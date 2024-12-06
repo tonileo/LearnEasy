@@ -1,4 +1,4 @@
-<div class="py-5">
+<div class="py-3">
     <div class="flex">
         <header class="text-4xl p-4 font-bold">Learning SUBJECTX</header>
     </div>
@@ -43,30 +43,30 @@
                 </div>
     
                 <div class="flex p-10 justify-center items-center text-2xl border-t border-t-gray-600 align-middle"
-                    (click)="showAnswear()">
-                    @if (!answearClicked) {
+                    (click)="showAnswer()">
+                    @if (!answerClicked) {
                     <a class="mt-6 text-blue-500">
-                        Show answear
+                        Show answer
                     </a>
                     }@else {
-                    <p class="mt-6">{{flashCards[index].answear}}</p>
+                    <p class="mt-6">{{flashCards[index].answer}}</p>
                     }
                 </div>
             </div>
         }
 
         <div class="flex px-4 pt-4 justify-center gap-1.5">
-            <a class="buttonA bg-red-800" (click)="nextFlashCard()">
+            <a class="buttonA bg-red-800" (click)="rateFlashCard('Bad')">
                 <mat-icon>home</mat-icon>
                 <p class="mt-2">Bad</p>
             </a>
 
-            <a class="buttonA bg-yellow-700" (click)="nextFlashCard()">
+            <a class="buttonA bg-yellow-700" (click)="rateFlashCard('Ok')">
                 <mat-icon>home</mat-icon>
                 <p class="mt-2">Ok</p>
             </a>
 
-            <a class="buttonA bg-green-900" (click)="nextFlashCard()">
+            <a class="buttonA bg-green-900" (click)="rateFlashCard('Great')">
                 <mat-icon>home</mat-icon>
                 <p class="mt-2">Great</p>
             </a>

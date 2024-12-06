@@ -1,4 +1,4 @@
-import { Component, inject, numberAttribute, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FlashCardService } from '../../core/services/flash-card.service';
 import { FlashCard } from '../../shared/models/flashCard';
@@ -26,13 +26,16 @@ export class LearnComponent implements OnInit {
   readonly dialog = inject(MatDialog);
   private router = inject(Router);
 
-  private subjectId?: string | null;
-  public answearClicked: boolean = false;
-  public index: number = 0;
   public flashCards: FlashCard[] = [];
+  public answerClicked: boolean = false;
+  public index: number = 0;
+
+  private subjectId?: string | null;
+  private reviewedFlashCardIds: number[] = [];
+  private firstReview: boolean = false;
+  private cycleCount: number = 4;
 
   ngOnInit(): void {
-    console.log(this.flashCards);
     this.subjectId = this.activatedRoute.snapshot.paramMap.get('id');
     if (!this.subjectId) return;
 
@@ -40,23 +43,69 @@ export class LearnComponent implements OnInit {
       next: result => this.flashCards = result,
       error: error => console.error(error)
     });
+  }
+
+  showAnswer() {
+    this.answerClicked = !this.answerClicked;
+  }
+
+  rateFlashCard(feedback: 'Great' | 'Ok' | 'Bad') {
+    console.log(this.index);
     console.log(this.flashCards);
-  }
+    this.answerClicked = false;
 
-  showAnswear() {
-    this.answearClicked = !this.answearClicked;
-  }
-
-  nextFlashCard() {
-    this.answearClicked = false;
-    if (this.index < this.flashCards.length - 1) {
-      this.index++;
-    } else {
-      this.submitReviewedFlashCards();
+    switch (feedback) {
+      case 'Great':
+        this.reviewedFlashCardIds.push(+this.flashCards[this.index].id);
+        this.firstReview ? this.secondReviewFlashCards() : this.firstReviewFlashCards();
+        break;
+      case 'Ok':
+        this.moveFlashCardToEnd();
+        break;
+      case 'Bad':
+        this.moveFlashCardToCyclePosition();
+        break;
     }
   }
 
-  submitReviewedFlashCards() {
+  private moveFlashCardToEnd() {
+    const currentFlashCard = this.flashCards[this.index];
+    this.flashCards.splice(this.index, 1);
+    this.flashCards.push(currentFlashCard);
+  }
+
+  private moveFlashCardToCyclePosition() {
+    const currentFlashCard = this.flashCards[this.index];
+    this.flashCards.splice(this.index, 1);
+    const newIndex = (this.index + this.cycleCount) % (this.flashCards.length + 1);
+    this.flashCards.splice(newIndex, 0, currentFlashCard);
+  }
+
+  private getNextIndex() {
+    do {
+      this.index = (this.index + 1) % this.flashCards.length;
+    } while (this.reviewedFlashCardIds.includes(+this.flashCards[this.index].id));
+  }
+
+  private firstReviewFlashCards() {
+    if (this.reviewedFlashCardIds.length === this.flashCards.length) {
+      this.firstReview = true;
+      this.reviewedFlashCardIds = [];
+      this.index = 0;
+      return;
+    }
+    this.getNextIndex();
+  }
+
+  private secondReviewFlashCards() {
+    if (this.reviewedFlashCardIds.length === this.flashCards.length) {
+      this.submitReviewedFlashCards();
+      return;
+    }
+    this.getNextIndex();
+  }
+
+  private submitReviewedFlashCards() {
     const reviewedFlashCards: FlashCardReviewedList[] = this.flashCards.map(card => ({
       id: card.id
     }));
@@ -71,12 +120,12 @@ export class LearnComponent implements OnInit {
   editFlashCard(flashCardId: number, index: number) {
     const dialogRef = this.dialog.open(AddFlashCardDialogComponent, {
       minWidth: "1000px",
-      data: {flashCardId}
+      data: { flashCardId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == true) {
-        this.nextFlashCard();
+        this.rateFlashCard('Great');
       }
     });
   }
@@ -90,7 +139,7 @@ export class LearnComponent implements OnInit {
 
   deleteFlashCard(id: number) {
     this.flashCardService.deleteFlashCard(id).subscribe({
-      next: () => this.nextFlashCard(),
+      next: () => this.rateFlashCard('Great'),
       error: error => console.error(error)
     });
   }
