@@ -36,7 +36,7 @@ export class AddFlashCardDialogComponent implements OnInit {
 
   addFlashCardForm = this.fb.group({
     question: [''],
-    answear: [''],
+    answer: [''],
     tagId: [null as number | null]
   })
 
@@ -58,7 +58,7 @@ export class AddFlashCardDialogComponent implements OnInit {
       this.flashCardService.getFlashCard(this.matDialogData.flashCardId).subscribe({
         next: result => {
           this.addFlashCardForm.get('question')?.setValue(result.question);
-          this.addFlashCardForm.get('answear')?.setValue(result.answear);
+          this.addFlashCardForm.get('answer')?.setValue(result.answer);
           this.addFlashCardForm.get('tagId')?.setValue(result.tagId);
         }
       })

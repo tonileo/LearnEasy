@@ -8,6 +8,6 @@ public class FlashCardRequestDto
     public string Question { get; set; } = string.Empty;
 
     [Required]
-    public string Answear { get; set; } = string.Empty;
+    public string Answer { get; set; } = string.Empty;
     public int? TagId { get; set; }
 }

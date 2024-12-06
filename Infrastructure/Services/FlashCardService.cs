@@ -24,7 +24,7 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
                 {
                     Id = flashCard.Id,
                     Question = flashCard.Question,
-                    Answear = flashCard.Answear
+                    Answer = flashCard.Answer
                 });
             }
 
@@ -51,7 +51,7 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
             {
                 Id = flashCards.Id,
                 Question = flashCards.Question,
-                Answear = flashCards.Answear,
+                Answer = flashCards.Answer,
                 TagId = flashCards.TagId,
                 TagName = flashCards.Tag?.Name
             };
@@ -68,15 +68,15 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
     {
         try
         {
-            if (string.IsNullOrEmpty(flashCardDto.Question) || string.IsNullOrEmpty(flashCardDto.Answear))
+            if (string.IsNullOrEmpty(flashCardDto.Question) || string.IsNullOrEmpty(flashCardDto.Answer))
             {
-                throw new InvalidOperationException("Both answear and question has to be filled");
+                throw new InvalidOperationException("Both answer and question has to be filled");
             }
 
             var flashCard = new FlashCard
             {
                 Question = flashCardDto.Question,
-                Answear = flashCardDto.Answear,
+                Answer = flashCardDto.Answer,
                 TagId = flashCardDto.TagId,
                 SubjectId = subjectId
             };
@@ -94,9 +94,9 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
     {
         try
         {
-            if (string.IsNullOrEmpty(flashCardDto.Question) || string.IsNullOrEmpty(flashCardDto.Answear))
+            if (string.IsNullOrEmpty(flashCardDto.Question) || string.IsNullOrEmpty(flashCardDto.Answer))
             {
-                throw new InvalidOperationException("Both answear and question has to be filled");
+                throw new InvalidOperationException("Both answer and question has to be filled");
             }
 
             var flashCard = await context.FlashCards.Where(x => x.Id == flashCardId).FirstOrDefaultAsync();
@@ -104,7 +104,7 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
             if (flashCard != null)
             {
                 flashCard.Question = flashCardDto.Question;
-                flashCard.Answear = flashCardDto.Answear;
+                flashCard.Answer = flashCardDto.Answer;
                 flashCard.TagId = flashCardDto.TagId;
             }
 
@@ -153,7 +153,7 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
                 {
                     Id = flashCard.Id,
                     Question = flashCard.Question,
-                    Answear = flashCard.Answear
+                    Answer = flashCard.Answer
                 });
             }
 

@@ -9,7 +9,7 @@ public class FlashCard : BaseEntity
     public required string Question { get; set; }
 
     [Required]
-    public required string Answear { get; set; }
+    public required string Answer { get; set; }
 
     public DateTime? LastReviewed { get; set; }
 

@@ -50,7 +50,7 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Answear")
+                    b.Property<string>("Answer")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
