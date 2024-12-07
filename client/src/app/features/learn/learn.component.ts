@@ -50,8 +50,6 @@ export class LearnComponent implements OnInit {
   }
 
   rateFlashCard(feedback: 'Great' | 'Ok' | 'Bad') {
-    console.log(this.index);
-    console.log(this.flashCards);
     this.answerClicked = false;
 
     switch (feedback) {
@@ -118,28 +116,30 @@ export class LearnComponent implements OnInit {
   }
 
   editFlashCard(flashCardId: number, index: number) {
+    const returnEditedFlashCard = true;
     const dialogRef = this.dialog.open(AddFlashCardDialogComponent, {
       minWidth: "1000px",
-      data: { flashCardId }
+      data: { flashCardId, returnEditedFlashCard }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result == true) {
-        this.rateFlashCard('Great');
+      if (result) {
+        this.flashCards[index].question = result.question;
+        this.flashCards[index].answer = result.answer;
       }
     });
   }
 
-  async openConfirmDialog(id: number) {
+  async openConfirmDialog(id: number, index: number) {
     const cofirmed = await this.dialogService.confirm
       ("Delete this flash card?", "Are you sure you want to delete this flash card?");
 
-    if (cofirmed) this.deleteFlashCard(id);
+    if (cofirmed) this.deleteFlashCard(id, index);
   }
 
-  deleteFlashCard(id: number) {
+  deleteFlashCard(id: number, index: number) {
     this.flashCardService.deleteFlashCard(id).subscribe({
-      next: () => this.rateFlashCard('Great'),
+      next: () => this.flashCards.splice(index, 1),
       error: error => console.error(error)
     });
   }

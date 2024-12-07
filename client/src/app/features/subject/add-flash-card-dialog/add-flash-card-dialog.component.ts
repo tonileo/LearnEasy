@@ -97,9 +97,10 @@ export class AddFlashCardDialogComponent implements OnInit {
 
   editFlashCard() {
     const flashCardId = this.matDialogData.flashCardId;
+    const returnEditedFlashCard = this.matDialogData.returnEditedFlashCard;
     this.flashCardService.editFlashCard(flashCardId, this.addFlashCardForm.value).subscribe({
       next: () => {
-        this.dialogRef.close(true);
+        returnEditedFlashCard ? this.dialogRef.close(this.addFlashCardForm.value) : this.dialogRef.close(true);
       },
       error: error => console.error(error)
     });
