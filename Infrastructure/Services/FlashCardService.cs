@@ -8,34 +8,6 @@ namespace Infrastructure.Services;
 
 public class FlashCardService(AppDbContext context) : IFlashCardService
 {
-    public async Task<List<FlashCardDto>> GetFlashCards(int subjectId)
-    {
-        try
-        {
-            var flashCards = await context.FlashCards
-                .Where(x => x.SubjectId == subjectId)
-                .AsNoTracking()
-                .ToListAsync();
-
-            var flashCardList = new List<FlashCardDto>();
-            foreach (var flashCard in flashCards)
-            {
-                flashCardList.Add(new FlashCardDto()
-                {
-                    Id = flashCard.Id,
-                    Question = flashCard.Question,
-                    Answer = flashCard.Answer
-                });
-            }
-
-            return flashCardList;
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException("Problem with loading FlashCards: " + ex.Message);
-        }
-    }
-
     public async Task<FlashCardDto> GetFlashCard(int flashCardId)
     {
         try
@@ -62,6 +34,13 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
         {
             throw new InvalidOperationException("Problem with fetching the FlashCard: " + ex.Message);
         }
+    }
+
+    public async Task<int> GetSubjectFlashCardsCount(int id)
+    {
+        var flashCards = await context.FlashCards.Where(x => x.SubjectId == id).AsNoTracking().ToListAsync();
+
+        return flashCards.Count;
     }
 
     public async Task AddFlashCard(int subjectId, FlashCardRequestDto flashCardDto)

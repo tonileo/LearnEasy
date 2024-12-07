@@ -10,12 +10,12 @@ export class FlashCardService {
   baseUrl = environment.apiUrl;
   private http = inject(HttpClient);
 
-  getFlashCards(){
-    return this.http.get<FlashCard[]>(this.baseUrl + 'flashCard/subject');
-  }
-
   getFlashCard(flashCardId: number){
     return this.http.get<FlashCard>(this.baseUrl + 'flashCard/' + flashCardId);
+  }
+
+  getSubjectFlashCardsCount(id: number){
+    return this.http.get<number>(this.baseUrl + 'flashCard/subject/' + id);
   }
 
   addFlashCard(subjectId: number, values: any){

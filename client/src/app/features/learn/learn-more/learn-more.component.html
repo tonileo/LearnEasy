@@ -1,0 +1,18 @@
+<mat-card class="px-6 pb-6 dialog border bg-white">
+    <mat-card-header class="justify-center flex flex-col">
+        <h2 class="text-center font-semibold">Good job!</h2>
+        <p class="text-center font-light pb-5">Keep going!</p>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="flex justify-between">
+            <p>Flashcards learned</p>
+            <p>{{matDialogData.flashcardsLearned}} / {{flashCardsCount}}</p>
+        </div>
+    </mat-card-content>
+
+    <div class="flex justify-between mt-6">
+        <button mat-flat-button (click)="closeDialog()">Finish</button>
+        <button mat-raised-button (click)="learnMore()">Learn more</button>
+    </div>
+</mat-card>

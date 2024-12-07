@@ -27,10 +27,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 })
 export class AddFlashCardDialogComponent implements OnInit {
   private dialogRef = inject(MatDialogRef<AddFlashCardDialogComponent>);
+  public matDialogData = inject(MAT_DIALOG_DATA);
   private fb = inject(FormBuilder);
   private flashCardService = inject(FlashCardService);
   private tagService = inject(TagService);
-  public matDialogData = inject(MAT_DIALOG_DATA);
+  
   public addTagInput: boolean = false;
   public tags?: Tag[] = [];
 

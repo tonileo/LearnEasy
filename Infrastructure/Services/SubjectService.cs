@@ -17,6 +17,7 @@ public class SubjectService(AppDbContext context) : ISubjectService
             .ThenInclude(f => f.Tag)
             .Include(z => z.Notes)
             .Include(g => g.PdfFiles)
+            .AsNoTracking()
             .SingleOrDefaultAsync(x => x.Id == id)
             ?? throw new InvalidOperationException($"No subject found with id {id}");
 

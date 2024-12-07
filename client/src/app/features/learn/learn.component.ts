@@ -8,6 +8,7 @@ import { FlashCardReviewedList } from '../../shared/models/flashCardReviewedList
 import { DialogService } from '../../core/services/dialog.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddFlashCardDialogComponent } from '../subject/add-flash-card-dialog/add-flash-card-dialog.component';
+import { LearnMoreComponent } from './learn-more/learn-more.component';
 
 @Component({
   selector: 'app-learn',
@@ -37,8 +38,11 @@ export class LearnComponent implements OnInit {
 
   ngOnInit(): void {
     this.subjectId = this.activatedRoute.snapshot.paramMap.get('id');
-    if (!this.subjectId) return;
+    this.loadData();
+  }
 
+  private loadData() {
+    if (!this.subjectId) return;
     this.flashCardService.getRandomFlashCards(+this.subjectId).subscribe({
       next: result => this.flashCards = result,
       error: error => console.error(error)
@@ -110,9 +114,30 @@ export class LearnComponent implements OnInit {
 
     this.flashCardService.patchLastReviewedFlashCard(reviewedFlashCards).subscribe({
       next: () => {
-        this.router.navigateByUrl("/subject/" + this.subjectId);
+        this.learnMoreDialog();
       }
     });
+  }
+
+  private learnMoreDialog() {
+    const flashcardsLearned = this.flashCards.length;
+    const subjectId = this.subjectId;
+    const dialogRef = this.dialog.open(LearnMoreComponent, {
+      minWidth: '400px',
+      data: { flashcardsLearned, subjectId }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == true) {
+        this.router.navigateByUrl('/subject/' + this.subjectId);
+      } else {
+        this.flashCards = [];
+        this.index = 0;
+        this.reviewedFlashCardIds = [];
+        this.firstReview = false;
+        this.loadData();
+      }
+    })
   }
 
   editFlashCard(flashCardId: number, index: number) {

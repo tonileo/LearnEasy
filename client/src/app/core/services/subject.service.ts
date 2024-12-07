@@ -10,16 +10,16 @@ export class SubjectService {
   baseUrl = environment.apiUrl;
   private http = inject(HttpClient);
 
+  getSubject(id: number){
+    return this.http.get<Subject>(this.baseUrl + 'subject/' + id)
+  }
+
   addSubject(values: any) {
     return this.http.post(this.baseUrl + 'subject', values);
   }
 
   editSubject(subjectId: number, values: any) {
     return this.http.put(this.baseUrl + 'subject/' + subjectId, values)
-  }
-
-  getSubject(id: number){
-    return this.http.get<Subject>(this.baseUrl + 'subject/' + id)
   }
 
   deleteSubject(id: number){
