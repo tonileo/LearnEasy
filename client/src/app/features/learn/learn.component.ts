@@ -129,13 +129,13 @@ export class LearnComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == true) {
-        this.router.navigateByUrl('/subject/' + this.subjectId);
-      } else {
         this.flashCards = [];
         this.index = 0;
         this.reviewedFlashCardIds = [];
         this.firstReview = false;
         this.loadData();
+      } else {
+        this.router.navigateByUrl('/subject/' + this.subjectId);
       }
     })
   }

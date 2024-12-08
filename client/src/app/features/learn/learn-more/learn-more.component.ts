@@ -30,10 +30,10 @@ export class LearnMoreComponent implements OnInit{
   }
 
   closeDialog(){
-    this.dialogRef.close(true);
+    this.dialogRef.close();
   }
 
   learnMore(){
-    this.dialogRef.close();
+    this.dialogRef.close(true);
   }
 }
