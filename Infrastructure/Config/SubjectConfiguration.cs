@@ -15,5 +15,10 @@ public class SubjectConfiguration : IEntityTypeConfiguration<Subject>
             .WithMany(z => z.Subjects)
             .HasForeignKey(f => f.CategoryId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(u => u.User)
+            .WithMany(h => h.Subjects)
+            .HasForeignKey(f => f.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

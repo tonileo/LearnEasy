@@ -8,11 +8,16 @@ namespace Infrastructure.Services;
 
 public class TagService(AppDbContext context) : ITagService
 {
-    public async Task<List<TagDto>> GetTags()
+    public async Task<List<TagDto>> GetTags(string userId)
     {
         try
         {
-            var tags = await context.Tags.AsNoTracking().ToListAsync();
+            var tags = await context.Tags
+                .Include(u => u.FlashCards)
+                .ThenInclude(s => s.Subject)
+                .Where(t => t.FlashCards
+                    .Any(fc => fc.Subject != null && fc.Subject.UserId == userId))
+                .AsNoTracking().ToListAsync();
 
             var tagList = new List<TagDto>();
             foreach (var tag in tags)

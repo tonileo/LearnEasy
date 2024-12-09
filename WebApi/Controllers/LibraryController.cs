@@ -1,9 +1,12 @@
 using Core.DTOs;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Extensions;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LibraryController(ILibraryService libraryService) : ControllerBase
@@ -11,7 +14,9 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LibraryDto>>> GetAllSubjects()
         {
-            var result = await libraryService.GetAllSubjects();
+            var userId = User.GetId();
+
+            var result = await libraryService.GetAllSubjects(userId);
 
             if (result == null) return BadRequest("Problem with fetching subjects");
 

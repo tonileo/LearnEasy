@@ -1,9 +1,12 @@
 using Core.DTOs;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Extensions;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SubjectController(ISubjectService subjectService) : ControllerBase
@@ -21,7 +24,9 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult> AddSubject(SubjectRequestDto subjectRequestDto)
         {
-            await subjectService.AddSubject(subjectRequestDto);
+            var userId = User.GetId();
+
+            await subjectService.AddSubject(subjectRequestDto, userId);
 
             return Ok();
         }
@@ -29,7 +34,9 @@ namespace WebApi.Controllers
         [HttpPut("{subjectId}")]
         public async Task<ActionResult> EditSubject(int subjectId, SubjectRequestDto subjectRequestDto)
         {
-            await subjectService.EditSubject(subjectId, subjectRequestDto);
+            var userId = User.GetId();
+
+            await subjectService.EditSubject(subjectId, userId, subjectRequestDto);
 
             return Ok();
         }

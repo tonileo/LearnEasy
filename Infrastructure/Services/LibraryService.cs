@@ -7,11 +7,12 @@ namespace Infrastructure.Services;
 
 public class LibraryService(AppDbContext context) : ILibraryService
 {
-    public async Task<List<LibraryDto>> GetAllSubjects()
+    public async Task<List<LibraryDto>> GetAllSubjects(string userId)
     {
         try
         {
             var subjects = await context.Subjects
+                .Where(u => u.UserId == userId)
                 .Include(s => s.Category)
                 .Include(f => f.FlashCards)
                 .Include(n => n.Notes)

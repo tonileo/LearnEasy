@@ -57,7 +57,7 @@ public class SubjectService(AppDbContext context) : ISubjectService
         }
     }
 
-    public async Task AddSubject(SubjectRequestDto subjectRequestDto)
+    public async Task AddSubject(SubjectRequestDto subjectRequestDto, string userId)
     {
         if (subjectRequestDto.Color != "blue" && subjectRequestDto.Color != "red" && subjectRequestDto.Color != "purple"
             && subjectRequestDto.Color != "green" && subjectRequestDto.Color != "orange" && subjectRequestDto.Color != "yellow"
@@ -68,7 +68,7 @@ public class SubjectService(AppDbContext context) : ISubjectService
 
         try
         {
-            var subjectNames = await context.Subjects.Where(x => x.Name == subjectRequestDto.Name).FirstOrDefaultAsync();
+            var subjectNames = await context.Subjects.Where(u => u.UserId == userId && u.Name == subjectRequestDto.Name).FirstOrDefaultAsync();
 
             if (subjectNames != null)
             {
@@ -79,7 +79,8 @@ public class SubjectService(AppDbContext context) : ISubjectService
             {
                 Name = subjectRequestDto.Name,
                 CategoryId = subjectRequestDto.CategoryId,
-                Color = subjectRequestDto.Color
+                Color = subjectRequestDto.Color,
+                UserId = userId,
             };
 
             await context.AddAsync(addSubject);
@@ -91,7 +92,7 @@ public class SubjectService(AppDbContext context) : ISubjectService
         }
     }
 
-    public async Task EditSubject(int subjectId, SubjectRequestDto subjectRequestDto)
+    public async Task EditSubject(int subjectId, string userId, SubjectRequestDto subjectRequestDto)
     {
         if (subjectRequestDto.Color != "blue" && subjectRequestDto.Color != "red" && subjectRequestDto.Color != "purple"
             && subjectRequestDto.Color != "green" && subjectRequestDto.Color != "orange" && subjectRequestDto.Color != "yellow"
@@ -102,7 +103,7 @@ public class SubjectService(AppDbContext context) : ISubjectService
 
         try
         {
-            var subjectNames = await context.Subjects.Where(x => x.Name == subjectRequestDto.Name).FirstOrDefaultAsync();
+            var subjectNames = await context.Subjects.Where(u => u.UserId == userId && u.Name == subjectRequestDto.Name).FirstOrDefaultAsync();
 
             if (subjectNames != null)
             {
@@ -130,7 +131,7 @@ public class SubjectService(AppDbContext context) : ISubjectService
     {
         try
         {
-            var subject = await context.Subjects.Where(x => x.Id == id).FirstOrDefaultAsync() 
+            var subject = await context.Subjects.Where(x => x.Id == id).FirstOrDefaultAsync()
                 ?? throw new InvalidOperationException("Subject with that id doesn't exists!");
 
             context.Subjects.Remove(subject);
