@@ -10,58 +10,45 @@ public class TagService(AppDbContext context) : ITagService
 {
     public async Task<List<TagDto>> GetTags(string userId)
     {
-        try
-        {
-            var tags = await context.Tags
-                .Include(u => u.FlashCards)
-                .ThenInclude(s => s.Subject)
-                .Where(t => t.FlashCards
-                    .Any(fc => fc.Subject != null && fc.Subject.UserId == userId))
-                .AsNoTracking().ToListAsync();
+        var tags = await context.Tags
+            .Include(u => u.FlashCards)
+            .ThenInclude(s => s.Subject)
+            .Where(t => t.FlashCards
+                .Any(fc => fc.Subject != null && fc.Subject.UserId == userId))
+            .AsNoTracking().ToListAsync();
 
-            var tagList = new List<TagDto>();
-            foreach (var tag in tags)
+        var tagList = new List<TagDto>();
+        foreach (var tag in tags)
+        {
+            tagList.Add(new TagDto()
             {
-                tagList.Add(new TagDto()
-                {
-                    Id = tag.Id,
-                    Name = tag.Name ?? string.Empty
-                });
-            }
+                Id = tag.Id,
+                Name = tag.Name ?? string.Empty
+            });
+        }
 
-            return tagList;
-        }
-        catch (Exception ex)
-        {
-            throw new InvalidOperationException("Problem with loading tags: " + ex.Message);
-        }
+        return tagList;
     }
 
     public async Task<TagDto> CreateTag(string tagName)
     {
-        try
+        if (string.IsNullOrEmpty(tagName))
         {
-            if (string.IsNullOrEmpty(tagName))
-            {
-                throw new InvalidOperationException("Tag name has to be filled");
-            }
-
-            var tag = new Tag
-            {
-                Name = tagName
-            };
-
-            await context.AddAsync(tag);
-            await context.SaveChangesAsync();
-
-            return new TagDto{
-                Id = tag.Id,
-                Name = tag.Name
-            };
+            throw new InvalidOperationException("Tag name has to be filled");
         }
-        catch (Exception ex)
+
+        var tag = new Tag
         {
-            throw new InvalidOperationException("Problem with adding the Tag: " + ex.Message);
-        }
+            Name = tagName
+        };
+
+        await context.AddAsync(tag);
+        await context.SaveChangesAsync();
+
+        return new TagDto
+        {
+            Id = tag.Id,
+            Name = tag.Name
+        };
     }
 }
