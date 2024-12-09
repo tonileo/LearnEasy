@@ -63,7 +63,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPatch("learn")]
-        public async Task<ActionResult> PatchLastReviewedFlashCard(List<FlashCardReviewedListDto> flashCardReviewedList)
+        public async Task<ActionResult> PatchLastReviewedFlashCard(List<int> flashCardReviewedList)
         {
             await flashCardService.PatchLastReviewedFlashCard(flashCardReviewedList);
 

@@ -4,7 +4,6 @@ import { FlashCardService } from '../../core/services/flash-card.service';
 import { FlashCard } from '../../shared/models/flashCard';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
-import { FlashCardReviewedList } from '../../shared/models/flashCardReviewedList';
 import { DialogService } from '../../core/services/dialog.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddFlashCardDialogComponent } from '../subject/add-flash-card-dialog/add-flash-card-dialog.component';
@@ -108,9 +107,7 @@ export class LearnComponent implements OnInit {
   }
 
   private submitReviewedFlashCards() {
-    const reviewedFlashCards: FlashCardReviewedList[] = this.flashCards.map(card => ({
-      id: card.id
-    }));
+    const reviewedFlashCards: number[] = this.flashCards.map(x => +x.id);
 
     this.flashCardService.patchLastReviewedFlashCard(reviewedFlashCards).subscribe({
       next: () => {

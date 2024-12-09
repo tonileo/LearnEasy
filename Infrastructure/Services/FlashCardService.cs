@@ -109,7 +109,7 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
         return flashCardList;
     }
 
-    public async Task PatchLastReviewedFlashCard(List<FlashCardReviewedListDto> flashCardReviewedList)
+    public async Task PatchLastReviewedFlashCard(List<int> flashCardReviewedList)
     {
 
         if (flashCardReviewedList == null || !flashCardReviewedList.Any())
@@ -120,9 +120,9 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
         foreach (var flashcardReview in flashCardReviewedList)
         {
             var flashCard = await context.FlashCards
-            .Where(x => x.Id == flashcardReview.Id)
+            .Where(x => x.Id == flashcardReview)
             .FirstOrDefaultAsync()
-                ?? throw new InvalidOperationException($"Flashcard with ID {flashcardReview.Id} does not exist");
+                ?? throw new InvalidOperationException($"Flashcard with ID {flashcardReview} does not exist");
 
             flashCard.LastReviewed = DateTime.Now;
         }

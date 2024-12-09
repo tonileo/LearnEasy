@@ -5,17 +5,12 @@ namespace Core.Entities;
 
 public class PdfFile : BaseEntity
 {
-    [Required]
     public required string Name { get; set; }
 
-    [Required]
     public required string Path { get; set; }
 
-    [Required]
     public DateTime CreatedAt { get; set; }  = DateTime.Now;
 
-    [Required]
     public int SubjectId { get; set; }
-    [Required]
     public virtual Subject? Subject { get; set; }
 }
