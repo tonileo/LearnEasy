@@ -60,12 +60,12 @@ namespace WebApi.Controllers
             {
                 user.FirstName,
                 user.LastName,
-                user.HasPremium,
-                user.Email
+                user.Email,
+                user.HasPremium
             });
         }
 
-        [HttpGet]
+        [HttpGet("auth-status")]
         public ActionResult GetAuthState()
         {
             return Ok(new { IsAuthenticated = User.Identity?.IsAuthenticated ?? false });

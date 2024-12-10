@@ -1,4 +1,4 @@
-<mat-card class="p-8 dialog border bg-white">
+<mat-card class="p-8 dialog border">
     <mat-card-header class="justify-center">
         @if (matDialogData) {
             <h2 class="text-center font-semibold pb-7">Edit subject</h2>
@@ -14,7 +14,7 @@
                 <input matInput formControlName="name" type="text" placeholder="Math 1" required>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" color="primary">
+            <mat-form-field appearance="outline">
                 <mat-label>Category</mat-label>
                 <mat-select formControlName="categoryId" required>
                     @for (category of categories; track $index) {

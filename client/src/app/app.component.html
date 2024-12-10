@@ -1,6 +1,6 @@
-<div class="flex mx-2 2xl:mx-44">
-  <app-sidebar class="w-30"></app-sidebar>
-  <div class="flex-1 max-h-screen mt-10 mb-5 rounded-xl max-w-screen-xl">
+<div class="flex h-screen w-screen">
+  @if (accountService.currentUser()) {
+      <app-sidebar class="w-30"></app-sidebar>
+  }
     <router-outlet></router-outlet>
-  </div>
 </div>

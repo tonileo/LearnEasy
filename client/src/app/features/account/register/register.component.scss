@@ -1,0 +1,13 @@
+.bgColor {
+    background-color: #12023c;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8);
+    min-width: 550px;
+}
+
+h2 {
+    font-size: 28px;
+}
+
+:host ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-text-field__input{
+    color: white;
+}

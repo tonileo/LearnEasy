@@ -1,75 +1,79 @@
-<div class="py-3">
-    <div class="flex">
-        <header class="text-4xl p-4 font-bold">Learning SUBJECTX</header>
-    </div>
+<div class="flex mx-2 mt-4">
+    <div class="flex-1 universalDiv max-h-screen rounded-xl max-w-screen-xl 2xl:max-w-screen-2xl w-screen">
+        <div class="py-3">
+            <div class="flex">
+                <header class="text-4xl p-4 font-bold">Learning SUBJECTX</header>
+            </div>
 
-    <div class="ml-1 pl-3 pb-3">
-        For loop here - {{index + 1}} of {{flashCards.length}}
-    </div>
+            <div class="ml-1 pl-3 pb-3">
+                For loop here - {{index + 1}} of {{flashCards.length}}
+            </div>
 
-    <div class="flex flex-col p-4 border-t border-t-gray-600 items-center h-full">
-        @if (flashCards[index]) {
-            <div class="flashCardDiv border border-gray-600 rounded-2xl">
-                <div class="flex p-5">
-                    @if (flashCards[index].tagId) {
-                    <div class="text-blue-500">
-                        {{flashCards[index].tagName}}
-                    </div>
-                    }@else {
-                    <div>
-                        No tags
-                    </div>
-                    }
-    
-                    <div class="ml-auto">
-                        <button mat-icon-button [matMenuTriggerFor]="menu">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-    
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item (click)="editFlashCard(+flashCards[index].id, index)">
-                                Edit
+            <div class="flex flex-col p-4 border-t border-t-gray-600 items-center h-full">
+                @if (flashCards[index]) {
+                <div class="flashCardDiv border border-gray-600 rounded-2xl">
+                    <div class="flex p-5">
+                        @if (flashCards[index].tagId) {
+                        <div class="text-blue-500">
+                            {{flashCards[index].tagName}}
+                        </div>
+                        }@else {
+                        <div>
+                            No tags
+                        </div>
+                        }
+
+                        <div class="ml-auto">
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon>more_vert</mat-icon>
                             </button>
-    
-                            <button mat-menu-item (click)="openConfirmDialog(+flashCards[index].id, index)">
-                                Delete
-                            </button>
-                        </mat-menu>
+
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="editFlashCard(+flashCards[index].id, index)">
+                                    Edit
+                                </button>
+
+                                <button mat-menu-item (click)="openConfirmDialog(+flashCards[index].id, index)">
+                                    Delete
+                                </button>
+                            </mat-menu>
+                        </div>
+                    </div>
+
+                    <div class="flex p-8 mb-8 questionDiv justify-center">
+                        {{flashCards[index].question}}
+                    </div>
+
+                    <div class="flex p-10 justify-center items-center text-2xl border-t border-t-gray-600 align-middle"
+                        (click)="showAnswer()">
+                        @if (!answerClicked) {
+                        <a class="mt-6 text-blue-500">
+                            Show answer
+                        </a>
+                        }@else {
+                        <p class="mt-6">{{flashCards[index].answer}}</p>
+                        }
                     </div>
                 </div>
-    
-                <div class="flex p-8 mb-8 questionDiv justify-center">
-                    {{flashCards[index].question}}
-                </div>
-    
-                <div class="flex p-10 justify-center items-center text-2xl border-t border-t-gray-600 align-middle"
-                    (click)="showAnswer()">
-                    @if (!answerClicked) {
-                    <a class="mt-6 text-blue-500">
-                        Show answer
+                }
+
+                <div class="flex px-4 pt-4 justify-center gap-1.5">
+                    <a class="buttonA bg-red-800" (click)="rateFlashCard('Bad')">
+                        <mat-icon>home</mat-icon>
+                        <p class="mt-2">Bad</p>
                     </a>
-                    }@else {
-                    <p class="mt-6">{{flashCards[index].answer}}</p>
-                    }
+
+                    <a class="buttonA bg-yellow-700" (click)="rateFlashCard('Ok')">
+                        <mat-icon>home</mat-icon>
+                        <p class="mt-2">Ok</p>
+                    </a>
+
+                    <a class="buttonA bg-green-900" (click)="rateFlashCard('Great')">
+                        <mat-icon>home</mat-icon>
+                        <p class="mt-2">Great</p>
+                    </a>
                 </div>
             </div>
-        }
-
-        <div class="flex px-4 pt-4 justify-center gap-1.5">
-            <a class="buttonA bg-red-800" (click)="rateFlashCard('Bad')">
-                <mat-icon>home</mat-icon>
-                <p class="mt-2">Bad</p>
-            </a>
-
-            <a class="buttonA bg-yellow-700" (click)="rateFlashCard('Ok')">
-                <mat-icon>home</mat-icon>
-                <p class="mt-2">Ok</p>
-            </a>
-
-            <a class="buttonA bg-green-900" (click)="rateFlashCard('Great')">
-                <mat-icon>home</mat-icon>
-                <p class="mt-2">Great</p>
-            </a>
         </div>
     </div>
 </div>

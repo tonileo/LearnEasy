@@ -1,64 +1,68 @@
-<div class="py-3 h-full">
-    <div class="flex">
-        <header class="text-4xl p-4 font-bold">LIBRARY</header>
-
-        <button mat-flat-button class="my-auto ml-auto mr-6" (click)="addNewSubjectDialog()">
-            + Add new subject
-        </button>
-    </div>
-
-    <div class="ml-1 pl-3 pb-3 text-xl">
-        Menu
-    </div>
-
-    <div class="p-4 border-t border-t-gray-600">
-        @if (subjectCards.length === 0) {
-        <a class="customClickableBlock flex flex-col p-4 items-center justify-center h-36 w-fit m-2 
-                content-center text-gray-500 border rounded-2xl" (click)="addNewSubjectDialog()">
-            <p class="text-2xl">+</p>
-            <p class="text-2xl mb-4">Add your first subject</p>
-            <p class="text-sm">Get started by adding subjects to organize your learning materials!</p>
-        </a>
-        }
-        <div class="flex gap-4 mt-2 flex-wrap">
-            @for (subject of subjectCards; track $index) {
-            <a [routerLink]="['/subject', subject.subjectId]" class="customClickableBlock block pb-2">
-                <div class="content flex flex-col justify-between h-full">
-                    <div>
-                        <p class="text-xl font-bold">{{subject.name}}</p>
-                        <p class="font-thin text-gray-400">{{subject.categoryName}}</p>
-                    </div>
-
-                    <div class="mt-auto flex border-t pt-1.5">
-                        <p class="mr-2">{{subject.flashCardsCount}} Flashcards</p>
-                        @if (subject.pdfFilesCount > 0) {
-                        <p class="mr-2">- {{subject.pdfFilesCount}} Files</p>
-                        }
-                        @if (subject.notesCount > 0) {
-                        <p>- {{subject.notesCount}} Notes</p>
-                        }
-
-                        <div class="ml-auto">
-                            <button mat-icon-button [matMenuTriggerFor]="menu" 
-                                (click)="$event.stopPropagation(); $event.preventDefault()">
-                                <mat-icon>more_vert</mat-icon>
-                            </button>
-
-                            <mat-menu #menu="matMenu">
-                                <button mat-menu-item (click)="editSubjectDialog(subject.subjectId ,subject.name, 
-                                    subject.categoryName, subject.color)">
-                                    Edit
-                                  </button>
-                    
-                                  <button mat-menu-item (click)="openConfirmDialog(subject.subjectId)">
-                                    Delete
-                                  </button>
-                            </mat-menu>
+<div class="flex mx-2 mt-4">
+    <div class="flex-1 universalDiv max-h-screen rounded-xl max-w-screen-xl 2xl:max-w-screen-2xl w-screen">
+        <div class="py-3 h-full">
+            <div class="flex">
+                <header class="text-4xl p-4 font-bold">LIBRARY</header>
+        
+                <button mat-flat-button class="my-auto ml-auto mr-6" (click)="addNewSubjectDialog()">
+                    + Add new subject
+                </button>
+            </div>
+        
+            <div class="ml-1 pl-3 pb-3 text-xl">
+                Menu
+            </div>
+        
+            <div class="p-4 border-t border-t-gray-600">
+                @if (subjectCards.length === 0) {
+                <a class="customClickableBlock flex flex-col p-4 items-center justify-center h-36 w-fit m-2 
+                        content-center text-gray-500 border rounded-2xl" (click)="addNewSubjectDialog()">
+                    <p class="text-2xl">+</p>
+                    <p class="text-2xl mb-4">Add your first subject</p>
+                    <p class="text-sm">Get started by adding subjects to organize your learning materials!</p>
+                </a>
+                }
+                <div class="flex gap-4 mt-2 flex-wrap">
+                    @for (subject of subjectCards; track $index) {
+                    <a [routerLink]="['/subject', subject.subjectId]" class="customClickableBlock block pb-2">
+                        <div class="content flex flex-col justify-between h-full">
+                            <div>
+                                <p class="text-xl font-bold">{{subject.name}}</p>
+                                <p class="font-thin text-gray-400">{{subject.categoryName}}</p>
+                            </div>
+        
+                            <div class="mt-auto flex border-t pt-1.5">
+                                <p class="mr-2">{{subject.flashCardsCount}} Flashcards</p>
+                                @if (subject.pdfFilesCount > 0) {
+                                <p class="mr-2">- {{subject.pdfFilesCount}} Files</p>
+                                }
+                                @if (subject.notesCount > 0) {
+                                <p>- {{subject.notesCount}} Notes</p>
+                                }
+        
+                                <div class="ml-auto">
+                                    <button mat-icon-button [matMenuTriggerFor]="menu" 
+                                        (click)="$event.stopPropagation(); $event.preventDefault()">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+        
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item (click)="editSubjectDialog(subject.subjectId ,subject.name, 
+                                            subject.categoryName, subject.color)">
+                                            Edit
+                                          </button>
+                            
+                                          <button mat-menu-item (click)="openConfirmDialog(subject.subjectId)">
+                                            Delete
+                                          </button>
+                                    </mat-menu>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </a>
+                    }
                 </div>
-            </a>
-            }
+            </div>
         </div>
     </div>
 </div>

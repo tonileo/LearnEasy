@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from "./layout/sidebar/sidebar.component";
-import { SubjectComponent } from "./features/subject/subject.component";
-import { LibraryComponent } from "./features/library/library.component";
+import { AccountService } from './core/services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +10,10 @@ import { LibraryComponent } from "./features/library/library.component";
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'client';
+export class AppComponent implements OnInit {
+  public accountService = inject(AccountService);
+  
+  ngOnInit(): void {
+    this.accountService.getUserInfo(); 
+  }
 }
