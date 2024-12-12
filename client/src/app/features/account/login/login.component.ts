@@ -34,7 +34,20 @@ export class LoginComponent {
     this.router.navigateByUrl('/account/register');
   }
 
-  onSubmit() {
+  login(loginType: 'default' | 'user' | 'admin') {
+    switch(loginType){
+      case 'user': 
+        this.loginForm.value.email = 'a';
+        this.loginForm.value.password = 'a';
+        break;
+      case 'admin':
+        this.loginForm.value.email = 'a';
+        this.loginForm.value.password = 'a';
+        break;
+      case 'default':
+        break;
+    }
+
     this.accountService.login(this.loginForm.value).subscribe({
       next: () => {
         this.accountService.getUserInfo();

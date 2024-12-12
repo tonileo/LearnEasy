@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,11 +27,13 @@ export class RegisterComponent {
   private router = inject(Router);
   private snackbarService = inject(SnackbarService);
 
+  validationErrors?: string[];
+
   registerForm = this.fb.group({
-    firstName: [''],
-    lastName: [''],
-    email: [''],
-    password: ['']
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required]
   });
 
   onSubmit() {
@@ -39,7 +41,8 @@ export class RegisterComponent {
       next: () => {
         this.snackbarService.success('Registration successful!');
         this.router.navigateByUrl('account/login');
-      }
+      },
+      error: errors => this.validationErrors = errors
     })
   }
 }

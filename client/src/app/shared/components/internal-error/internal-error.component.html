@@ -1,12 +1,16 @@
-<div class="container p-4">
-    <h1 class="text-3xl font-semibold mb-4">Internal error</h1>
-    @if (error) {
-        <h5 class=" text-red-600">Error: {{error.message}}</h5>
-        <p class="font-bold">This error comes from the server</p>
+<div class="flex mx-2 mt-4">
+    <div class="flex-1 universalDiv max-h-screen rounded-xl max-w-screen-xl 2xl:max-w-screen-2xl w-screen">
+        <div class="container p-4">
+            <h1 class="text-3xl font-semibold mb-4">Internal error</h1>
+            @if (error) {
+            <h5 class=" text-red-600">Error: {{error.message}}</h5>
+            <p class="font-bold">This error comes from the server</p>
 
-        <h5 class="text-lg font-semibold mb-2">Stack trace</h5>
-        <div class="px-4 pt-4 bg-black rounded-xl">
-            <code class="block whitespace-pre-wrap overflow-auto">{{error.details}}</code>
+            <h5 class="text-lg font-semibold mb-2">Stack trace</h5>
+            <div class="px-4 pt-4 bg-black rounded-xl">
+                <code class="block whitespace-pre-wrap overflow-auto">{{error.details}}</code>
+            </div>
+            }
         </div>
-    }
+    </div>
 </div>
