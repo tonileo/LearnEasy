@@ -1,6 +1,10 @@
 <div class="flex h-screen w-screen">
   @if (accountService.currentUser()) {
-      <app-sidebar class="w-30"></app-sidebar>
+  <app-sidebar></app-sidebar>
   }
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+
+  @if (accountService.currentUser()) {
+  <app-ad></app-ad>
+  }
 </div>
