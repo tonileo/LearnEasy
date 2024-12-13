@@ -1,5 +1,3 @@
-using System;
-
 namespace WebApi.Errors;
 
 public class ApiErrorResponse(int statusCode, string message, string? details)

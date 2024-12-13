@@ -19,6 +19,7 @@ builder.Services.AddScoped<ILibraryService, LibraryService>();
 builder.Services.AddScoped<ISubjectService, SubjectService>();
 builder.Services.AddScoped<IFlashCardService, FlashCardService>();
 builder.Services.AddScoped<ITagService, TagService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<AppUser>()

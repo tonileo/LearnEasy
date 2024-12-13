@@ -30,8 +30,8 @@ export class RegisterComponent {
   validationErrors?: string[];
 
   registerForm = this.fb.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
+    firstName: [''],
+    lastName: [''],
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required]
   });

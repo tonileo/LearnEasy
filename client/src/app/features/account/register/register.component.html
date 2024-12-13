@@ -8,18 +8,12 @@
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-3">
                 <mat-form-field appearance="outline">
                     <mat-label>First name</mat-label>
-                    <input matInput formControlName="firstName" type="text" placeholder="Tom" required>
-                    @if (registerForm.get('firstName')?.hasError('required')) {
-                    <mat-error>First name is required</mat-error>
-                    }
+                    <input matInput formControlName="firstName" type="text" placeholder="Tom">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
                     <mat-label>Last name</mat-label>
-                    <input matInput formControlName="lastName" type="text" placeholder="Moe" required>
-                    @if (registerForm.get('lastName')?.hasError('required')) {
-                    <mat-error>Last name is required</mat-error>
-                    }
+                    <input matInput formControlName="lastName" type="text" placeholder="Moe">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">

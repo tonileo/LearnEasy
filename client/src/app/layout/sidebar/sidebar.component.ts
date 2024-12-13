@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import {MatIconModule} from '@angular/material/icon'; 
+import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AccountService } from '../../core/services/account.service';
 
@@ -29,11 +29,10 @@ export class SidebarComponent {
     })
   }
 
-  isHomeActive() : boolean {
-    return this.router.url.startsWith('/') && 
-               !this.router.url.startsWith('/stats') && 
-               !this.router.url.startsWith('/profile') &&
-               !this.router.url.startsWith('/account') &&
-               !this.router.url.startsWith('/test-error');
+  isHomeActive(): boolean {
+    return this.router.url.startsWith('/') &&
+      !this.router.url.startsWith('/profile') &&
+      !this.router.url.startsWith('/account') &&
+      !this.router.url.startsWith('/test-error');
   }
 }

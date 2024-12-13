@@ -1,0 +1,11 @@
+.bgColor {
+    background-color: #231942;
+}
+
+button[disabled] {
+    background-color: #d3d3d3;
+}
+
+:host ::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-text-field__input{
+    color: white;
+}

@@ -1,5 +1,37 @@
 <div class="flex mx-2 mt-4">
-    <div class="flex-1 universalDiv max-h-screen rounded-xl max-w-screen-xl 2xl:max-w-screen-2xl w-screen">
-        <p>profile works!</p>
-    </div>
-</div>
+    <div class="flex-1 universalDiv max-h-screen rounded-xl max-w-screen-lg 2xl:max-w-screen-xl w-screen">
+        <div class="py-3 h-full">
+            <div>
+                <header class="text-4xl p-4 font-bold">Profile</header>
+            </div>
+
+            <div class="mt-3 p-6 pt-8 border-t border-t-gray-600">
+                <mat-card class="bgColor p-6">
+                    <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-3">
+                        <mat-form-field class="pt-3" appearance="outline">
+                            <mat-label>First name</mat-label>
+                            <input matInput formControlName="firstName" type="text">
+                        </mat-form-field>
+        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Last name</mat-label>
+                            <input matInput formControlName="lastName" type="text">
+                        </mat-form-field>
+
+                        <div class="border-t border-t-gray-500">
+                            <div class="mt-2">
+                            <p class="ml-10 text-gray-500">Email</p>
+                                <p class="p-3 pl-10 border rounded-full text-gray-500">{{user?.email}}</p>
+                            </div>
+
+                            <div class="mt-2">
+                                <p class="ml-10 text-gray-500">Has premium?</p>
+                                <p class="p-3 pl-10 border rounded-full text-gray-500">{{user?.hasPremium}}</p>
+                            </div>
+                        </div>
+        
+                        <button class="mt-3" type="submit" [disabled]="!enableBtn" mat-flat-button>Edit</button>
+                    </form>
+                </mat-card>
+            </div>
+        </div>

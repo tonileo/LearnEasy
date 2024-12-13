@@ -1,17 +1,13 @@
 <div class="h-screen w-full">
-    <nav class="flex flex-col p-5 justify-between gap-5">
+    <nav class="h-screen flex flex-col justify-between w-32">
+        <div class="flex flex-col justify-between p-4 gap-5">
             <a class="flex flex-col my-5 items-center" routerLink="/">
                 <mat-icon class="min-h-10 min-w-10 text-4xl">school</mat-icon>
             </a>
-    
+
             <a class="navs" routerLink="/" [ngClass]="{ 'active': isHomeActive() }">
                 <mat-icon>home</mat-icon>
                 <span class="text-lg">Home</span>
-            </a>
-    
-            <a class="navs" routerLink="/stats" routerLinkActive="active">
-                <mat-icon>query_stats</mat-icon>
-                <span class="text-lg">Statistics</span>
             </a>
 
             <a class="navs" routerLink="/profile" routerLinkActive="active">
@@ -23,10 +19,13 @@
                 <mat-icon>error</mat-icon>
                 <span class="text-lg">Errors</span>
             </a>
+        </div>
 
-            <a class="navs" (click)="logout()">
-                <mat-icon>logout</mat-icon>
+        <div class="flex flex-col justify-between p-4">
+            <a class="navs mb-4" (click)="logout()">
+                <mat-icon class="text-red-600">logout</mat-icon>
                 <span class="text-lg">Log out</span>
             </a>
+        </div>
     </nav>
 </div>

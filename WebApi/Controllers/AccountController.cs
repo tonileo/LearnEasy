@@ -1,18 +1,16 @@
-using System.Security.Claims;
 using Core.DTOs;
 using Core.Entities;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebApi.Extensions;
 
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController(SignInManager<AppUser> signInManager) : ControllerBase
+    public class AccountController(SignInManager<AppUser> signInManager, IAccountService accountService) : ControllerBase
     {
         [HttpPost("register")]
         public async Task<ActionResult> Register(RegisterDto registerDto)
@@ -69,6 +67,16 @@ namespace WebApi.Controllers
         public ActionResult GetAuthState()
         {
             return Ok(new { IsAuthenticated = User.Identity?.IsAuthenticated ?? false });
+        }
+
+        [Authorize]
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(EditAccountDto editAccountDto)
+        {
+            var id = User.GetId();
+            await accountService.UpdateUser(id, editAccountDto);
+
+            return Ok();
         }
     }
 }

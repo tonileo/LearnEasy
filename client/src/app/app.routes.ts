@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { LibraryComponent } from './features/library/library.component';
 import { SubjectComponent } from './features/subject/subject.component';
 import { ProfileComponent } from './features/profile/profile.component';
-import { StatsComponent } from './features/stats/stats.component';
 import { LearnComponent } from './features/learn/learn.component';
 import { TestErrorComponent } from './features/test-error/test-error.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
@@ -19,7 +18,6 @@ export const routes: Routes = [
     { path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
     { path: 'account/login', component: LoginComponent },
     { path: 'account/register', component: RegisterComponent },
-    { path: 'stats', component: StatsComponent, canActivate: [authGuard]},
     { path: 'test-error', component: TestErrorComponent },
     { path: 'not-found', component: NotFoundComponent },
     { path: 'internal-error', component: InternalErrorComponent },
