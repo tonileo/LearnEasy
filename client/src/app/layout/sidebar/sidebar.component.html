@@ -1,31 +1,39 @@
-<div class="h-screen w-full">
-    <nav class="h-screen flex flex-col justify-between w-32">
+    <nav class="h-full flex flex-col justify-between">
         <div class="flex flex-col justify-between p-4 gap-5">
-            <a class="flex flex-col my-5 items-center" routerLink="/">
-                <mat-icon class="min-h-10 min-w-10 text-4xl">school</mat-icon>
+            <a class="flex flex-col ml-2.5 my-2 items-center" routerLink="/">
+                <mat-icon class="logoDisplay min-h-10 min-w-10 text-4xl"
+                    [ngClass]="{'text-orange-300' : hasPremium}">school</mat-icon>
+                @if (hasPremium) {
+                <span class="text-lg text-orange-300">Premium</span>
+                }
             </a>
 
             <a class="navs" routerLink="/" [ngClass]="{ 'active': isHomeActive() }">
-                <mat-icon>home</mat-icon>
+                <mat-icon class="iconDisplay">home</mat-icon>
                 <span class="text-lg">Home</span>
             </a>
 
             <a class="navs" routerLink="/profile" routerLinkActive="active">
-                <mat-icon>account_circle</mat-icon>
+                <mat-icon class="iconDisplay">account_circle</mat-icon>
                 <span class="text-lg">Profile</span>
             </a>
 
             <a class="navs" routerLink="/test-error" routerLinkActive="active">
-                <mat-icon>error</mat-icon>
+                <mat-icon class="iconDisplay">error</mat-icon>
                 <span class="text-lg">Errors</span>
             </a>
         </div>
 
         <div class="flex flex-col justify-between p-4">
+            @if (!hasPremium) {
+                <a class="navs mb-4" routerLink="/premium" routerLinkActive="active">
+                    <mat-icon class="iconDisplay text-orange-400">workspace_premium</mat-icon>
+                    <span class="text-lg">Premium</span>
+                </a>
+            }
             <a class="navs mb-4" (click)="logout()">
-                <mat-icon class="text-red-600">logout</mat-icon>
+                <mat-icon class="iconDisplay text-red-600">logout</mat-icon>
                 <span class="text-lg">Log out</span>
             </a>
         </div>
     </nav>
-</div>

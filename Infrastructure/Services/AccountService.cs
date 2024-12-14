@@ -15,20 +15,36 @@ public class AccountService(AppDbContext context) : IAccountService
             throw new ArgumentException("At least one value has to be filled");
         }
 
-        var user = await context.Users.Where(x => x.Id == id).SingleAsync();
+        var user = await context.Users.Where(x => x.Id == id).FirstAsync();
 
         if (!editAccountDto.FirstName.IsNullOrEmpty() && !editAccountDto.LastName.IsNullOrEmpty())
         {
             user.FirstName = editAccountDto.FirstName;
             user.LastName = editAccountDto.LastName;
         }
-        else if(!editAccountDto.FirstName.IsNullOrEmpty())
+        else if (!editAccountDto.FirstName.IsNullOrEmpty())
         {
             user.FirstName = editAccountDto.FirstName;
         }
         else
         {
             user.LastName = editAccountDto.LastName;
+        }
+
+        await context.SaveChangesAsync();
+    }
+
+    public async Task UpgradeToPremium(string id)
+    {
+        var user = await context.Users.Where(x => x.Id == id).FirstAsync();
+
+        if (user.HasPremium == true)
+        {
+            throw new Exception("User already has premium account");
+        }
+        else
+        {
+            user.HasPremium = true;
         }
 
         await context.SaveChangesAsync();

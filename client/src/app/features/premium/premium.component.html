@@ -1,0 +1,56 @@
+<div class="flex mx-2 mt-4 text-black">
+    <div class="flex-1 universalDiv max-h-screen rounded-xl">
+        <div class="m-4">
+            <div class="flex w-full">
+                <div class="flex flex-col w-3/4 bg-white rounded-2xl p-4">
+                    <div class="w-full mb-4">
+                        <p class="mb-2 font-bold text-black">Address</p>
+                        <div class="border border-gray-400 p-4 rounded-2xl">
+                            <div id="address-element" class="w-full"></div>
+                        </div>
+                    </div>
+
+                    <div class="w-full">
+                        <p class="mb-2 font-bold text-black">Payment method</p>
+                        <div class="border border-gray-400 p-4 rounded-2xl">
+                            <div id="payment-element" class="w-full"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ml-4 w-1/4 bg-gray-200 rounded-2xl p-4">
+                    <div class="w-full mr-4 h-full flex flex-col">
+                        <p class="pb-4 text-2xl border-b border-b-gray-700">Order summary</p>
+                        <div class="w-full h-full mt-5 flex flex-col justify-between">
+                            <div class="flex flex-col pb-2">
+                                <div class="flex justify-between font-bold text-xl">
+                                    <p>Premium account</p>
+                                    <p>{{premiumPrice}} EUR</p>
+                                </div>
+                                <p class="text-gray-600">lifetime</p>
+                                <p class="text-gray-600">x1 item</p>
+                            </div>
+
+                            <div>
+                                <div class="flex mt-2 pt-4 font-bold text-xl justify-between border-t border-t-gray-700">
+                                    <p>Total</p>
+                                    <p>{{premiumPrice}} EUR</p>
+                                </div>
+    
+                                <button class="mt-5 w-full" mat-flat-button
+                                    [disabled]="!completitionStatus().address || !completitionStatus().card || loading"
+                                    (click)="confirmPayment()">
+                                    @if (loading) {
+                                        <mat-spinner diameter="20"></mat-spinner>
+                                    } @else {
+                                        <span>Pay {{premiumPrice}} EUR</span>
+                                    }
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,7 +16,7 @@ public class SubjectService(AppDbContext context) : ISubjectService
         .Include(z => z.Notes)
         .Include(g => g.PdfFiles)
         .AsNoTracking()
-        .SingleOrDefaultAsync(x => x.Id == id)
+        .FirstOrDefaultAsync(x => x.Id == id)
         ?? throw new InvalidOperationException($"No subject found with id {id}");
 
         var flashCards = subject.FlashCards.Take(8);

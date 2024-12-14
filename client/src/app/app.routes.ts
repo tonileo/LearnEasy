@@ -9,6 +9,8 @@ import { InternalErrorComponent } from './shared/components/internal-error/inter
 import { LoginComponent } from './features/account/login/login.component';
 import { RegisterComponent } from './features/account/register/register.component';
 import { authGuard } from './core/guards/auth.guard';
+import { PremiumComponent } from './features/premium/premium.component';
+import { PaymentSuccessfulComponent } from './features/premium/payment-successful/payment-successful.component';
 
 export const routes: Routes = [
     { path: '', component: LibraryComponent, canActivate: [authGuard]},
@@ -16,6 +18,8 @@ export const routes: Routes = [
     { path: 'subject/:id', component: SubjectComponent, canActivate: [authGuard]},
     { path: 'subject/:id/learn', component: LearnComponent, canActivate: [authGuard]},
     { path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
+    { path: 'premium', component: PremiumComponent, canActivate: [authGuard]},
+    { path: 'premium/success', component: PaymentSuccessfulComponent, canActivate: [authGuard]},
     { path: 'account/login', component: LoginComponent },
     { path: 'account/register', component: RegisterComponent },
     { path: 'test-error', component: TestErrorComponent },

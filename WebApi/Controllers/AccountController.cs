@@ -78,5 +78,15 @@ namespace WebApi.Controllers
 
             return Ok();
         }
+
+        [Authorize]
+        [HttpPatch("premium")]
+        public async Task<ActionResult> UpgradeToPremium()
+        {
+            var id = User.GetId();
+            await accountService.UpgradeToPremium(id);
+
+            return Ok();
+        }
     }
 }
