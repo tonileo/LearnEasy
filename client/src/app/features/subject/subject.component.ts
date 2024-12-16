@@ -9,6 +9,7 @@ import { AddFlashCardDialogComponent } from './add-flash-card-dialog/add-flash-c
 import { MatMenuModule } from '@angular/material/menu';
 import { DialogService } from '../../core/services/dialog.service';
 import { FlashCardService } from '../../core/services/flash-card.service';
+import { SnackbarService } from '../../core/services/snackbar.service';
 
 @Component({
   selector: 'app-subject',
@@ -29,6 +30,7 @@ export class SubjectComponent implements OnInit {
   private subjectService = inject(SubjectService);
   private dialogService = inject(DialogService);
   private flashCardService = inject(FlashCardService);
+  private snackbarService = inject(SnackbarService);
   private activatedRoute = inject(ActivatedRoute);
 
   subject?: Subject;
@@ -100,6 +102,10 @@ export class SubjectComponent implements OnInit {
   }
 
   redirectToLearn(): void {
-    this.router.navigateByUrl('/subject/' + this.subjectId + '/learn');
+    if (this.subject?.flashCardsCount != undefined && this.subject?.flashCardsCount > 0){
+      this.router.navigateByUrl('/subject/' + this.subjectId + '/learn');
+    } else {
+      this.snackbarService.error("Add your first flashcard to start learning");
+    }
   }
 }

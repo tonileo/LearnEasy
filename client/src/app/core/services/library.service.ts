@@ -12,10 +12,14 @@ export class LibraryService {
   private http = inject(HttpClient);
 
   getAllSubjects(){
-    return this.http.get<SubjectCard[]>(this.baseUrl + 'library')
+    return this.http.get<SubjectCard[]>(this.baseUrl + 'library');
+  }
+
+  getAllSubjectsByCategory(categoryId: number){
+    return this.http.get<SubjectCard[]>(this.baseUrl + 'library?categoryId=' + categoryId);
   }
 
   getAllCategories() {
-    return this.http.get<Category[]>(this.baseUrl + 'library/categories')
+    return this.http.get<Category[]>(this.baseUrl + 'library/categories');
   }
 }

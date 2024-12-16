@@ -12,11 +12,11 @@ namespace WebApi.Controllers
     public class LibraryController(ILibraryService libraryService) : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LibraryDto>>> GetAllSubjects()
+        public async Task<ActionResult<IEnumerable<LibraryDto>>> GetAllSubjects(int? categoryId)
         {
             var userId = User.GetId();
 
-            var result = await libraryService.GetAllSubjects(userId);
+            var result = await libraryService.GetAllSubjects(userId, categoryId);
 
             if (result == null) return BadRequest("Problem with fetching subjects");
 

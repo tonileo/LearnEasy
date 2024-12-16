@@ -48,13 +48,12 @@ export class LearnComponent implements OnInit {
     });
   }
 
-  showAnswer() {
+  toggleAnswer() {
     this.answerClicked = !this.answerClicked;
   }
 
   rateFlashCard(feedback: 'Great' | 'Ok' | 'Bad') {
     this.answerClicked = false;
-
     switch (feedback) {
       case 'Great':
         this.reviewedFlashCardIds.push(+this.flashCards[this.index].id);
@@ -126,11 +125,7 @@ export class LearnComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result == true) {
-        this.flashCards = [];
-        this.index = 0;
-        this.reviewedFlashCardIds = [];
-        this.firstReview = false;
-        this.loadData();
+        this.resetStateAndReload();
       } else {
         this.router.navigateByUrl('/subject/' + this.subjectId);
       }
@@ -155,7 +150,6 @@ export class LearnComponent implements OnInit {
   async openConfirmDialog(id: number, index: number) {
     const cofirmed = await this.dialogService.confirm
       ("Delete this flash card?", "Are you sure you want to delete this flash card?");
-
     if (cofirmed) this.deleteFlashCard(id, index);
   }
 
@@ -164,5 +158,13 @@ export class LearnComponent implements OnInit {
       next: () => this.flashCards.splice(index, 1),
       error: error => console.error(error)
     });
+  }
+
+  private resetStateAndReload() {
+    this.flashCards = [];
+    this.index = 0;
+    this.reviewedFlashCardIds = [];
+    this.firstReview = false;
+    this.loadData();
   }
 }

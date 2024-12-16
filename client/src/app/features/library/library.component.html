@@ -1,5 +1,5 @@
 <div class="flex mx-2 mt-4">
-    <div class="flex-1 universalDiv max-h-screen rounded-xl">
+    <div class="flex-1 universalDiv max-h-screen rounded-xl w-96">
         <div class="py-3 h-full">
             <div class="flex">
                 <header class="text-4xl p-4 font-bold">LIBRARY</header>
@@ -9,11 +9,19 @@
                 </button>
             </div>
         
-            <div class="ml-1 pl-3 pb-3 text-xl">
-                Menu
+            <div class="ml-1 pl-2 pb-1">
+                <mat-form-field appearance="outline" class="max-w-52">
+                    <mat-label>Categories</mat-label>
+                    <mat-select (selectionChange)="onCategoryChange($event)">
+                        <mat-option [value]="null">--------------------------</mat-option>
+                        @for (category of categories; track category.id) {
+                            <mat-option [value]="category.id">{{category.name}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
             </div>
         
-            <div class="p-4 border-t border-t-gray-600">
+            <div class="p-4 border-t border-t-gray-600 overflow-auto overflowHeight">
                 @if (subjectCards.length === 0) {
                 <a class="customClickableBlock flex flex-col p-4 items-center justify-center h-36 w-fit m-2 
                         content-center text-gray-500 border rounded-2xl" (click)="addNewSubjectDialog()">

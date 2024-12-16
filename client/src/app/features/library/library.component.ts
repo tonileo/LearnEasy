@@ -9,6 +9,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { DialogService } from '../../core/services/dialog.service';
 import { SubjectService } from '../../core/services/subject.service';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { Category } from '../../shared/models/category';
 
 @Component({
   selector: 'app-library',
@@ -18,7 +20,8 @@ import { SubjectService } from '../../core/services/subject.service';
     RouterLink,
     MatDialogModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule
   ],
   templateUrl: './library.component.html',
   styleUrl: './library.component.scss'
@@ -28,14 +31,31 @@ export class LibraryComponent implements OnInit {
   private dialogService = inject(DialogService);
   private subjectService = inject(SubjectService);
   readonly dialog = inject(MatDialog);
+
   subjectCards: SubjectCard[] = [];
+  public categories: Category[] = [];
 
   ngOnInit(): void {
-    this.loadData();
+    this.loadSubjects();
+
+    this.libraryService.getAllCategories().subscribe({
+      next: response => this.categories = response,
+      error: error => console.error(error)
+    })
   }
 
-  loadData(): void {
+  loadSubjects(): void {
     this.libraryService.getAllSubjects().subscribe({
+      next: response => this.subjectCards = response,
+      error: error => console.error(error)
+    });
+  }
+
+  onCategoryChange(event: any) {
+    const categoryId = event.value;
+
+    if (!categoryId) this.loadSubjects();
+    this.libraryService.getAllSubjectsByCategory(categoryId).subscribe({
       next: response => this.subjectCards = response,
       error: error => console.error(error)
     });
@@ -48,7 +68,7 @@ export class LibraryComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.loadData();
+        this.loadSubjects();
       }
     });
   }
@@ -61,7 +81,7 @@ export class LibraryComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.loadData();
+        this.loadSubjects();
       }
     });
   }
@@ -75,7 +95,7 @@ export class LibraryComponent implements OnInit {
 
   deleteSubject(id: number){
     this.subjectService.deleteSubject(id).subscribe({
-      next: () => this.loadData(),
+      next: () => this.loadSubjects(),
       error: error => console.error(error)
     });
   }

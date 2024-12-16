@@ -7,11 +7,11 @@ using WebApi.Extensions;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PaymentController(IPaymentService paymentService) : ControllerBase
     {
-        [Authorize]
         [HttpPost]
         public async Task<ActionResult<PaymentDto>> CreatePaymentIntent()
         {

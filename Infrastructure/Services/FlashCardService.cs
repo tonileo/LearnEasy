@@ -85,18 +85,38 @@ public class FlashCardService(AppDbContext context) : IFlashCardService
 
     public async Task<List<FlashCardDto>> GetRandomFlashCards(int subjectId)
     {
+        const int FlashCardsCount = 20;
+
         var flashCards = await context.FlashCards
             .Where(x => x.SubjectId == subjectId)
             .AsNoTracking()
             .ToListAsync();
 
-        var randomFlashCards = flashCards
+        var neverReviewedFlashCards = flashCards
+            .Where(x => x.LastReviewed == null)
+            .Take(FlashCardsCount)
+            .ToList();
+
+        var finalFlashCards = new List<FlashCard>(neverReviewedFlashCards);
+
+        if (neverReviewedFlashCards.Count < FlashCardsCount)
+        {
+            var remaining = FlashCardsCount - neverReviewedFlashCards.Count;
+
+            var leftFlashCards = flashCards
+            .Where(x => x.LastReviewed != null)
+            .Take(remaining)
+            .ToList();
+
+            finalFlashCards.AddRange(leftFlashCards);
+        }
+
+        finalFlashCards = finalFlashCards
             .OrderBy(_ => Guid.NewGuid())
-            .Take(20)
             .ToList();
 
         var flashCardList = new List<FlashCardDto>();
-        foreach (var flashCard in randomFlashCards)
+        foreach (var flashCard in finalFlashCards)
         {
             flashCardList.Add(new FlashCardDto()
             {

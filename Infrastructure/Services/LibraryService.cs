@@ -7,7 +7,7 @@ namespace Infrastructure.Services;
 
 public class LibraryService(AppDbContext context) : ILibraryService
 {
-    public async Task<List<LibraryDto>> GetAllSubjects(string userId)
+    public async Task<List<LibraryDto>> GetAllSubjects(string userId, int? categoryId)
     {
         var subjects = await context.Subjects
             .Where(u => u.UserId == userId)
@@ -17,6 +17,8 @@ public class LibraryService(AppDbContext context) : ILibraryService
             .Include(p => p.PdfFiles)
             .AsNoTracking()
             .ToListAsync();
+
+        if (categoryId != null) subjects = subjects.Where(x => x.CategoryId == categoryId).ToList();
 
         var flashCardCount = subjects.Sum(c => c.Notes.Count);
 
