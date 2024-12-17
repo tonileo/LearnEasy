@@ -1,15 +1,46 @@
 using Core.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Data.Seed;
 
-public class SeedData(AppDbContext context)
+public class SeedData(AppDbContext context, UserManager<AppUser> userManager)
 {
-    public void Run()
+    public async Task Run()
     {
+        if (!context.Users.Any())
+        {
+            await AddUsers(context);
+        }
+
         if (!context.Categories.Any())
         {
             AddCategories(context);
         }
+    }
+
+    private async Task AddUsers(AppDbContext context)
+    {
+        var nonPremiumUser = new AppUser
+        {
+            FirstName = "Tom",
+            LastName = "Jones",
+            Email = "tom@jones.com",
+            UserName = "tom@jones.com"
+        };
+        var nonPremiumUserPassword = "nonPremiumPa$$w0rd";
+
+        var premiumUser = new AppUser
+        {
+            FirstName = "John",
+            LastName = "Hose",
+            Email = "john@hose.com",
+            UserName = "john@hose.com",
+            HasPremium = true,
+        };
+        var premiumUserPassword = "premiumPa$$w0rd";
+
+        await userManager.CreateAsync(premiumUser, premiumUserPassword);
+        await userManager.CreateAsync(nonPremiumUser, nonPremiumUserPassword);
     }
 
     private static void AddCategories(AppDbContext context)

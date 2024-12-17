@@ -5,7 +5,7 @@
   <div class="flex flex-col flex-grow">
     <router-outlet></router-outlet>
   </div>
-  @if (!accountService.currentUser()?.hasPremium) {
+  @if (!accountService.currentUser()?.hasPremium && accountService.currentUser()) {
     <app-ad class="w-1/6"></app-ad>
   }
 </div>

@@ -34,15 +34,15 @@ export class LoginComponent {
     this.router.navigateByUrl('/account/register');
   }
 
-  login(loginType: 'default' | 'user' | 'admin') {
+  login(loginType: 'default' | 'nonPremiumUser' | 'premiumUser') {
     switch(loginType){
-      case 'user': 
-        this.loginForm.value.email = 'a';
-        this.loginForm.value.password = 'a';
+      case 'nonPremiumUser': 
+        this.loginForm.value.email = 'tom@jones.com';
+        this.loginForm.value.password = 'nonPremiumPa$$w0rd';
         break;
-      case 'admin':
-        this.loginForm.value.email = 'a';
-        this.loginForm.value.password = 'a';
+      case 'premiumUser':
+        this.loginForm.value.email = 'john@hose.com';
+        this.loginForm.value.password = 'premiumPa$$w0rd';
         break;
       case 'default':
         break;

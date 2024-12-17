@@ -61,7 +61,7 @@ try
     var context = services.GetRequiredService<AppDbContext>();
     var seedData = services.GetRequiredService<SeedData>();
     await context.Database.MigrateAsync();
-    seedData.Run();
+    await seedData.Run();
 }
 catch (Exception ex)
 {

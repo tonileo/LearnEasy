@@ -25,10 +25,10 @@
                 <button [disabled]="loginForm.invalid" (click)="login('default')" mat-raised-button type="button">Log in</button>
             </form>
 
-            <!-- <div class="flex justify-between gap-3 mt-3">
-                <button class="w-full" mat-flat-button (click)="login('user')" type="button">Log in as user</button>
-                <button class="w-full" mat-flat-button (click)="login('admin')" type="button">Log in as admin</button>
-            </div> -->
+            <div class="flex justify-between gap-2 mt-3">
+                <button class="w-full min-h-12 bg-red-500 rounded-3xl" (click)="login('nonPremiumUser')" type="button">Log in as non premium user</button>
+                <button class="w-full min-h-12 bg-orange-400 rounded-3xl" (click)="login('premiumUser')" type="button">Log in as premium user</button>
+            </div>
 
             <button class="mt-4 text-blue-600" (click)="redirectToRegister()">Don't have an account? Register
                 here</button>
