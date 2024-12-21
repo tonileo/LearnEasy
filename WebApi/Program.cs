@@ -21,6 +21,7 @@ builder.Services.AddScoped<IFlashCardService, FlashCardService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<AppUser>()

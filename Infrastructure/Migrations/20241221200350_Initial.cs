@@ -5,7 +5,7 @@
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initital : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -63,6 +63,27 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BuyerEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PaymentIntentId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PaymentSummary_Last4 = table.Column<int>(type: "int", nullable: false),
+                    PaymentSummary_Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PaymentSummary_ExpMonth = table.Column<int>(type: "int", nullable: false),
+                    PaymentSummary_Year = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -410,6 +431,9 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Notes");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "PdfFiles");

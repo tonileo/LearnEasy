@@ -13,6 +13,7 @@ public class AppDbContext(DbContextOptions options) : IdentityDbContext<AppUser>
     public DbSet<Note> Notes { get; set; }
     public DbSet<PdfFile> PdfFiles { get; set; }
     public DbSet<Tag> Tags { get; set; }
+    public DbSet<Order> Orders { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

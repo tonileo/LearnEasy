@@ -184,6 +184,37 @@ namespace Infrastructure.Migrations
                     b.ToTable("Notes");
                 });
 
+            modelBuilder.Entity("Core.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BuyerEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OrderStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentIntentId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("Core.Entities.PdfFile", b =>
                 {
                     b.Property<int>("Id")
@@ -432,6 +463,38 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Subject");
+                });
+
+            modelBuilder.Entity("Core.Entities.Order", b =>
+                {
+                    b.OwnsOne("Core.Entities.PaymentSummary", "PaymentSummary", b1 =>
+                        {
+                            b1.Property<int>("OrderId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Brand")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<int>("ExpMonth")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Last4")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Year")
+                                .HasColumnType("int");
+
+                            b1.HasKey("OrderId");
+
+                            b1.ToTable("Orders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+                        });
+
+                    b.Navigation("PaymentSummary")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Core.Entities.PdfFile", b =>
