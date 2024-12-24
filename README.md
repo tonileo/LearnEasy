@@ -27,17 +27,14 @@
    dotnet restore
 
 4. **Set up the database and run the backend side**:
-   - Update the connection string in appsettings.json (inside LearnEasy.WebApi) to point to your SQL Server instance.
+   - Update the connection string in appsettings.json (inside WebApi) to point to your SQL Server instance.
    - Apply migrations to set up the database schema:
   
    ~~~ bash
-   cd LearnEasy.WebApi
+   cd WebApi
    ~~~
    ~~~ bash
    dotnet ef database update
-   ~~~
-   ~~~ bash
-   dotnet run
    ~~~
 
 5. **Install Angular dependencies**:
@@ -50,18 +47,8 @@
    npm install
    ~~~
 
-
-7. **Run the app**:
--Run the backend side (from the project root LearnEasy):
- 
-   ~~~ bash
-   cd WebApi
-   ~~~
-   ~~~ bash
-   dotnet run
-   ~~~
-
-- Run the frontend side in new console (from the project root LearnEasy):
+6. **Run the app**:
+   - Run the frontend side (from the project root LearnEasy):
 
    ~~~ bash
    cd client
@@ -69,6 +56,15 @@
    ~~~ bash
    ng serve
    ~~~ 
+
+   - Run the backend side in new console (from the project root LearnEasy):
+ 
+   ~~~ bash
+   cd WebApi
+   ~~~
+   ~~~ bash
+   dotnet watch
+   ~~~
 
 6. **Access the app**:
    - Open your browser and navigate to https://localhost:4200.
